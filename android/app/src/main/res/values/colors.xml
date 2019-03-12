@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#448FCC</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="transpare">#00000000</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#EFEFEF</color>
+    <color name="seleter_gray">#E4E4E4</color>
+    <color name="chart_finish">#00CC66</color>
+    <color name="chart_notfinish">#DEDEDE</color>
+
+    <color name="text_color_black">#000000</color>
+    <color name="black_2">#B3000000</color>
+    <color name="black_3">#303030</color>
+    <color name="text_color_gray">#AFAFAF</color>#F5A623
+    <color name="text_color_notenough">#F98996</color>
+    <color name="text_color_enough">#46CC85</color>
+    <color name="text_color_black2">#333333</color>
+    <color name="text_color_gray2">#A1A1A1</color>
+    <color name="text_color_ff6602">#FF6602</color>
+    <color name="text_color_30cba6">#FF30CBA6</color>
+
+
+    <color name="actionsheet_blue">#037BFF</color>
+    <color name="actionsheet_gray">#8F8F8F</color>
+
+    <color name="color_7671bd">#7671BD</color>
+    <color name="color_e89f24">#E89F24</color>
+    <color name="yellow_2">#FFF5A623</color>
+    <color name="gray_two">#E7E7E7</color>
+    <color name="gray_three">#F7F7F7</color>
+    <color name="gray_four">#EEEEEE</color>
+    <color name="gray_five">#D9D9D9</color>
+    <color name="gray_six">#FFD8D8D8</color>
+    <color name="gray_seven">#EFEEF4</color>
+    <color name="gray_eight">#B7B7B7</color>
+    <color name="gray_night">#FF979797</color>
+    <color name="gray_ten">#797979</color>
+    <color name="blue_1">#48B4F3</color>
+    <color name="blue_5fc4fd">#5FC4FD</color>
+    <color name="blue_5fc4fd_alpha">#990e9ce8</color>
+    <color name="red_1">#FF6666</color>
+    <color name="red_ffea5f4d">#FFEA5F4D</color>
+
+
+    <color name="black_303030">#FF303030</color>
+    <color name="black_404040">#FF404040</color>
+    <color name="black_505050">#FF505050</color>
+
+</resources>
