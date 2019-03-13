@@ -18,7 +18,7 @@ class _HotGoodsState extends State<HotGoods> {
      super.initState();
       getHomePageBeloConten().then((val){
          print(val);
-         Toast.showCenter(val);
+         Toast.showCenter('热门商品加载中...');
       });
 
       getHotGoods();

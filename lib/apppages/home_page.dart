@@ -102,9 +102,14 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                 ]
               ),
               loadMore: () async {
-                print('开始加载更多');
+                print('开始加载更多.....');
                 HotGoods.getHotGoods();
               },
+              onRefresh: (){
+                Toast.showCenter('下拉刷新,请求最新数据');
+              },
+
+              //上拉加载
               refreshFooter: ClassicsFooter(
                 key: GlobalKey(),
                 bgColor:Colors.white,
@@ -135,7 +140,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
 class _footerKey {
 }
 
-// 首页轮播组件编写
+// 首页轮播组件
 class SwiperDiy extends StatelessWidget {
 
   final List swiperDataList;
@@ -191,6 +196,7 @@ class TopNavigator extends StatelessWidget {
         crossAxisCount: 5,
         padding: EdgeInsets.all(5.0),
         children: navigatorList.map((item) => _gridViewItem(context, item)).toList(),
+        physics: NeverScrollableScrollPhysics(), // 直接禁用GridView的滚动
       ),
     );
   }

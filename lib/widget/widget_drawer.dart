@@ -25,13 +25,13 @@ class MyDrawer extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: ClipOval(
                       child: Image.network(
-                        "https://qlogo1.store.qq.com/qzone/969454876/969454876/50?1550287042",
+                        "https://cdn.jsdelivr.net/gh/flutterchina/website@1.0/images/homepage/header-illustration.png",
                         width: 80,
                       ),
                     ),
                   ),
                   Text(
-                    "Wendux",
+                    "Account",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   )
                 ],

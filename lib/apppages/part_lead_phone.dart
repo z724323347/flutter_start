@@ -3,8 +3,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../util/toast.dart';
 
 class LeaderPhone extends StatelessWidget {
-  final String leaderImage; //店长图片
-  final String leaderPhone; //店长电话
+  final String leaderImage; //图片
+  final String leaderPhone; //电话
   LeaderPhone({Key key, this.leaderImage,this.leaderPhone}) : super(key: key);
   @override
   Widget build(BuildContext context) {
