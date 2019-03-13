@@ -7,11 +7,13 @@ import '../config/service_method.dart';
 
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 import '../util/toast.dart';
 import 'part_lead_phone.dart';
 import 'part_recommend.dart';
 import 'part_floor.dart';
+import 'part_hot_goods.dart';
 
 class HomePage extends StatefulWidget {
   final Widget child;
@@ -62,9 +64,28 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
             List<Map> floor2 = (data['data']['floor2'] as List).cast(); //楼层1商品和图片 
             List<Map> floor3 = (data['data']['floor3'] as List).cast(); //楼层1商品和图片
 
-            return SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
+            // return SingleChildScrollView(
+            //   child: Column(
+            //     children: <Widget>[
+            //        SwiperDiy(swiperDataList:swiperDataList ),   //页面顶部轮播组件
+            //        TopNavigator(navigatorList: navigatorList),  // item gridview
+            //        AdBanner(advertesPicture:advertesPicture),   //广告组件  
+            //        LeaderPhone(leaderImage:leaderImage,leaderPhone: leaderPhone),  //广告组件 
+            //        Recommend(recommendList:recommendList),     //商品推荐 
+            //        //
+            //        FloorTitle(picture_address:floor1Title),
+            //        FloorContent(floorGoodsList:floor1),
+            //        FloorTitle(picture_address:floor2Title),
+            //        FloorContent(floorGoodsList:floor2),
+            //        FloorTitle(picture_address:floor3Title),
+            //        FloorContent(floorGoodsList:floor3),
+            //        HotGoods(),
+            //     ]
+            //   ),
+            // );
+            return EasyRefresh(
+              child: ListView(
+                   children: <Widget>[
                    SwiperDiy(swiperDataList:swiperDataList ),   //页面顶部轮播组件
                    TopNavigator(navigatorList: navigatorList),  // item gridview
                    AdBanner(advertesPicture:advertesPicture),   //广告组件  
@@ -77,7 +98,22 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                    FloorContent(floorGoodsList:floor2),
                    FloorTitle(picture_address:floor3Title),
                    FloorContent(floorGoodsList:floor3),
+                   HotGoods(),
                 ]
+              ),
+              loadMore: () async {
+                print('开始加载更多');
+                HotGoods.getHotGoods();
+              },
+              refreshFooter: ClassicsFooter(
+                key: GlobalKey(),
+                bgColor:Colors.white,
+                textColor: Colors.pink,
+                moreInfoColor: Colors.pink,
+                showMore: true,
+                noMoreText: '',
+                moreInfo: '加载中',
+                loadReadyText:'上拉加载....'
               ),
             );
           } else {
@@ -94,6 +130,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
   
+}
+
+class _footerKey {
 }
 
 // 首页轮播组件编写
