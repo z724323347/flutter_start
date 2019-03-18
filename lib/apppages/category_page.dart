@@ -109,3 +109,20 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
   
 }
 
+
+//右侧顶部nav
+class TopCategoryNav extends StatefulWidget {
+
+  _TopCategoryNavState createState() => _TopCategoryNavState();
+}
+
+class _TopCategoryNavState extends State<TopCategoryNav> {
+
+  List list = [];
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+    );
+  }
+}

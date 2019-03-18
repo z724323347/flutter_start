@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+
+import 'package:provide/provide.dart';
+import '../provide/counter.dart';
+
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -8,7 +12,13 @@ class ProfilePage extends StatelessWidget {
         title: Text('Profile'),
       ),
       body: Center(
-        child: Text("Profile Page"),
+        child: Provide<Counter>(
+        builder: (context, child, counter) {
+          return Text(
+            '${counter.value}',
+            style: TextStyle(fontSize: 20),);
+        },
+      ),
       ),
     );
   }

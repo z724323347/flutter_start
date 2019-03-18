@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
+
+import 'package:camera/camera.dart';
+
 import 'custom_route.dart';
 import 'package:flutter_pro/web/web_view_more.dart';
 import 'package:flutter_pro/web/web_view_plugin.dart';
@@ -17,6 +20,11 @@ class _OneScreenState extends State<OneScreen> {
   static const nativePlugin = const MethodChannel('native.plugin');
   static const platform = const MethodChannel("native.flutter.io/battery");
   String _batteryLevel = "Unknown battery level.";
+
+  //相机调用
+  List<CameraDescription> cameras;
+  CameraController controller;
+
 
 
   Future<Null> _getBatteryLevel() async {
@@ -102,11 +110,50 @@ class _OneScreenState extends State<OneScreen> {
                     ),
             ),
           ),
+
+          RaisedButton(
+            child: Text('打开相机!'),
+            onPressed: (){
+                // open();
+            },
+          ),
+          // AspectRatio(
+          //   aspectRatio:
+          //   controller.value.aspectRatio,
+          //   child: CameraPreview(controller)
+          //   ),
           
         ],
       ),
       ),
     );
   }
+
+
+  
+  Future<void> open() async {
+    cameras = await availableCameras();
+  }
+  //  @override
+  // void initState() {
+  //   super.initState();
+  //   controller = CameraController(cameras[0], ResolutionPreset.medium);
+  //   controller.initialize().then((_) {
+  //     if (!mounted) {
+  //       return;
+  //     }
+  //     setState(() {});
+  //   });
+  // }
+
+  // @override
+  // void dispose() {
+  //   controller?.dispose();
+  //   super.dispose();
+  // }
+
+
+
+
 }
 
