@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 
-import 'package:camera/camera.dart';
+// import 'package:camera/camera.dart';
 
 import 'custom_route.dart';
 import 'package:flutter_pro/web/web_view_more.dart';
@@ -22,8 +22,8 @@ class _OneScreenState extends State<OneScreen> {
   String _batteryLevel = "Unknown battery level.";
 
   //相机调用
-  List<CameraDescription> cameras;
-  CameraController controller;
+  // List<CameraDescription> cameras;
+  // CameraController controller;
 
 
 
@@ -131,9 +131,9 @@ class _OneScreenState extends State<OneScreen> {
 
 
   
-  Future<void> open() async {
-    cameras = await availableCameras();
-  }
+  // Future<void> open() async {
+  //   cameras = await availableCameras();
+  // }
   //  @override
   // void initState() {
   //   super.initState();
