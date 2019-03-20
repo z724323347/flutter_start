@@ -5,8 +5,14 @@ import 'package:flutter_pro/widget/widget_formfield.dart';
 import 'container.dart';
 import 'package:flutter_pro/widget/widget_drawer.dart';
 
-class ThreeScreen extends StatelessWidget {
-  
+
+
+class ThreeScreen extends StatefulWidget {
+
+  _ThreeScreenState createState() => _ThreeScreenState();
+}
+
+class _ThreeScreenState extends State<ThreeScreen> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +88,10 @@ class ThreeScreen extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 class WrapAndFlow extends StatelessWidget {
