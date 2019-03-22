@@ -5,10 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:provide/provide.dart';
 import '../provide/category_provide.dart';
+import '../provide/category_goodslist_provide.dart';
 
 import 'package:flutter_pro/model/category.dart';
 import 'package:flutter_pro/model/category_model.dart';
+import 'package:flutter_pro/model/category_goodslist_model.dart';
 import 'package:flutter_pro/util/toast.dart';
+import './part_category_goodslist.dart';
 
 class CategoryPage extends StatefulWidget {
 
@@ -34,6 +37,7 @@ class _CategoryPageState extends State<CategoryPage> with AutomaticKeepAliveClie
             Column(
               children: <Widget>[
                 TopCategoryNav(),
+                CategoryGoodsList()
               ],
             ),
           ],
@@ -63,6 +67,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
   @override
   void initState() {
     getCategory();
+    _getGoodList();
     super.initState();
   }
 
@@ -100,7 +105,11 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
         Toast.showCenter(list[index].mallCategoryName);
         //点击 topnav 改变状态
         var childList = list[index].bxMallSubDto;
+        var categoryId =list[index].mallCategoryId;
         Provide.value<CategoryProvide>(context).getChildCategory(childList);
+
+        // 可选参数传递 需key
+        _getGoodList(categoryId: categoryId);
       },
       child: Container(
         height: ScreenUtil().setHeight(100),
@@ -135,6 +144,31 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
           Provide.value<CategoryProvide>(context).getChildCategory(list[0].bxMallSubDto);
           
           
+    });
+  }
+
+   void _getGoodList({String categoryId}) async {
+    var data = {
+      'categoryId':categoryId == null ? '4' : categoryId,
+      'categorySubId':"",
+      'page':1
+    };
+
+    await request('getMallGoods',formData:data).then((val){
+      var data = json.decode(val.toString());
+
+      CategoryGoodsListModel goodsList =  CategoryGoodsListModel.fromJson(data);
+
+      Toast.showCenter('------------------- ${goodsList.data[0].goodsName}');
+
+      Provide.value<CategoryGoodsListProvide>(context).getGoodsList(goodsList.data);
+
+      // setState(() {
+      //  list =goodsList.data; 
+      // });
+
+      // print('分类商品列表：>>>>>>>>>>>>>>>>>> ${data}');
+      // Toast.showCenter('分类商品列表：\n${data}');
     });
   }
   
