@@ -106,7 +106,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
         //点击 topnav 改变状态
         var childList = list[index].bxMallSubDto;
         var categoryId =list[index].mallCategoryId;
-        Provide.value<CategoryProvide>(context).getChildCategory(childList);
+        Provide.value<CategoryProvide>(context).getChildCategory(childList,categoryId);
 
         // 可选参数传递 需key
         _getGoodList(categoryId: categoryId);
@@ -141,7 +141,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
           list.forEach((item) => print('item => ${item.mallCategoryName}'));
 
           //优化首次加载第一项数据不显示问题
-          Provide.value<CategoryProvide>(context).getChildCategory(list[0].bxMallSubDto);
+          Provide.value<CategoryProvide>(context).getChildCategory(list[0].bxMallSubDto,list[0].mallCategoryId);
           
           
     });
@@ -202,7 +202,7 @@ class _TopCategoryNavState extends State<TopCategoryNav> {
               scrollDirection: Axis.horizontal,
               itemCount: childCategory.childList.length,
               itemBuilder: (context, index){
-                return itemInkWell(childCategory.childList[index]);
+                return itemInkWell(index, childCategory.childList[index]);
               }
             ),
           );
@@ -211,18 +211,57 @@ class _TopCategoryNavState extends State<TopCategoryNav> {
     
   }
 
-  Widget itemInkWell(BxMallSubDto item) {
+  Widget itemInkWell(int index , BxMallSubDto item) {
+
+    bool isClick = false;
+
+    isClick = (index == Provide.value<CategoryProvide>(context).childIndex ) ? true : false;
     return InkWell(
       onTap: (){
-        Toast.showCenter('item: ${item.mallSubName}');
+        Provide.value<CategoryProvide>(context).changeChildIndex(index,item.mallSubId);
+        _getSubGoodList(item.mallSubId);
+//        Toast.showCenter('item: ${item.mallSubName}');
       },
       child: Container(
         padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
         child: Text(
           item.mallSubName,
-          style:TextStyle(fontSize:ScreenUtil().setSp(24))
+          style:TextStyle(
+              fontSize:ScreenUtil().setSp(24),
+              color: isClick? Colors.pink : Colors.black45
+          )
         ),
       ),
     );
   }
+
+  void _getSubGoodList(String categorySubId) async {
+    var data = {
+      'categoryId':Provide.value<CategoryProvide>(context).categoryId,
+      'categorySubId':categorySubId,
+      'page':1
+    };
+
+    await request('getMallGoods',formData:data).then((val){
+      var data = json.decode(val.toString());
+
+      CategoryGoodsListModel goodsList =  CategoryGoodsListModel.fromJson(data);
+
+      if (goodsList == null) {
+        Provide.value<CategoryGoodsListProvide>(context).getGoodsList([]);
+      } else {
+        Provide.value<CategoryGoodsListProvide>(context).getGoodsList(goodsList.data);
+      }
+//      Provide.value<CategoryGoodsListProvide>(context).getGoodsList(goodsList.data);
+
+
+      // setState(() {
+      //  list =goodsList.data;
+      // });
+
+      // print('分类商品列表：>>>>>>>>>>>>>>>>>> ${data}');
+      // Toast.showCenter('分类商品列表：\n${data}');
+    });
+  }
+
 }

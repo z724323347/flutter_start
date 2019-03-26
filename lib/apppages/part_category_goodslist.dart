@@ -29,16 +29,23 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
   Widget build(BuildContext context) {
     return Provide<CategoryGoodsListProvide>(
       builder: (context, child, data) {
-        return Container(
-          width: ScreenUtil().setWidth(570),
-          height: ScreenUtil().setHeight(1110),
-          child: ListView.builder(
-            itemCount: data.goodsList.length,
-            itemBuilder: (context,index) {
-              return buildItem(data.goodsList ,index);
-            },
-          ),
-        );
+        if(data.goodsList.length >0) {
+          return Expanded(
+            child: Container(
+              width: ScreenUtil().setWidth(570),
+              child: ListView.builder(
+                itemCount: data.goodsList.length,
+                itemBuilder: (context,index) {
+                  return buildItem(data.goodsList ,index);
+                },
+              ),
+            ),
+          );
+        } else {
+          return Center(
+            child: Text('暂无产品数据'),
+          );
+        }
       },
 
     );
