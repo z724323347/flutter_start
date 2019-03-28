@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import './tabs/tab_one.dart';
 import './tabs/tab_two.dart';
 import './tabs/tab_three.dart';
+import './tabs/tab_four.dart';
 
 class FourScreen extends StatefulWidget {
   _FourScreenState createState() => _FourScreenState();
@@ -14,7 +15,7 @@ class FourScreen extends StatefulWidget {
 class _FourScreenState extends State<FourScreen> with SingleTickerProviderStateMixin,AutomaticKeepAliveClientMixin{
 
   TabController _tabController; //需要定义一个Controller
-  List tabs = ["新闻", "历史", "图片"];
+  List tabs = ["新闻", "历史", "图片","其他"];
 
   void initState() { 
     super.initState();
@@ -36,7 +37,8 @@ class _FourScreenState extends State<FourScreen> with SingleTickerProviderStateM
         children: <Widget>[
           TabViewOnePage(),
           TabViewTwoPage(),
-          TabViewThreePage()
+          TabViewThreePage(),
+          TabViewFourPage()
         ],
         // children: tabs.map((e) { //模拟创建3个Tab页
         //   return Container(
