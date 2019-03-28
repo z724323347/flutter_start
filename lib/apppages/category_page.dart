@@ -247,20 +247,11 @@ class _TopCategoryNavState extends State<TopCategoryNav> {
 
       CategoryGoodsListModel goodsList =  CategoryGoodsListModel.fromJson(data);
 
-      if (goodsList == null) {
+      if (goodsList.data == null) {
         Provide.value<CategoryGoodsListProvide>(context).getGoodsList([]);
       } else {
         Provide.value<CategoryGoodsListProvide>(context).getGoodsList(goodsList.data);
       }
-//      Provide.value<CategoryGoodsListProvide>(context).getGoodsList(goodsList.data);
-
-
-      // setState(() {
-      //  list =goodsList.data;
-      // });
-
-      // print('分类商品列表：>>>>>>>>>>>>>>>>>> ${data}');
-      // Toast.showCenter('分类商品列表：\n${data}');
     });
   }
 
