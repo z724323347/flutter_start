@@ -4,6 +4,10 @@ import 'package:http/http.dart' as client;
 import 'package:flutter/services.dart';
 
 import 'package:flutter_pro/util/toast.dart';
+import 'package:flutter_pro/model/test_model.dart';
+import 'package:flutter_pro/util/dbhelper.dart';
+import 'package:flutter_pro/pages/custom_route.dart';
+import 'package:flutter_pro/pages/netease/netease_page.dart';
 
 class TabViewFourPage extends StatefulWidget {
 
@@ -16,6 +20,11 @@ class _TabViewFourPageState extends State<TabViewFourPage> with SingleTickerProv
   AnimationController _controller;
   CurvedAnimation curvedAnimation;
 
+
+  //sqlite 
+  List notes = [];
+  int i = 0;
+  
   @override
   void initState() {
     super.initState();
@@ -49,19 +58,79 @@ class _TabViewFourPageState extends State<TabViewFourPage> with SingleTickerProv
   @override
   Widget build(BuildContext context) {
     
-    return Center(
-      child: Container(
-        width: 200.0,
-        height: 200.0,
-        margin: EdgeInsets.all(8.0),
-        child: CustomPaint(
-          child: Center(
-            child: Text((_doubleAnimation.value /3.6).round().toString()),
-          ),
-          painter: CircleProgressBarPainter(_doubleAnimation.value),
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: <Widget>[
+            
+            //自定义圆形进度条
+            Container(
+              width: 200.0,
+              height: 200.0,
+              margin: EdgeInsets.all(8.0),
+              child: CustomPaint(
+                child: Center(
+                  child: Text((_doubleAnimation.value /3.6).round().toString()),
+                ),
+                painter: CircleProgressBarPainter(_doubleAnimation.value),
+              ),
+            ),
+            
+            RaisedButton(
+              child: Text('打开 播放界面!'),
+              onPressed: (){
+                  Navigator.of(context).push(
+                    CustomRoute(MusicPlayerExample())
+                  );
+              },
+            ),
+
+            //sqlite
+            ButtonBar(
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: _insertData,
+                  child: Text('存储数据'),
+                ),
+                RaisedButton(
+                  onPressed: getNotes,
+                  child: Text('点一次取2条数据'),
+                ),
+              ],
+            ),
+            ListView.builder(
+              itemBuilder: _itemBuilder,
+              shrinkWrap: true,
+              itemCount: notes.length,
+            )
+
+          ],
         ),
-      ),
+      )
+  
     );
+  }
+
+  void _insertData() async {
+    var db = DatabaseHelper();
+    TestModel todo = new TestModel(i, 'imarge', i, i, 0.1 * i, 0.1 * i);
+    i++;
+    await db.saveNote(todo);
+
+    getNotes();
+  }
+
+  void getNotes() async {
+    var db = DatabaseHelper();
+    var res = await db.getAllNotes(limit: 2, offset: notes.length);
+    setState(() {
+      notes.addAll(res);
+    });
+  }
+
+  Widget _itemBuilder(BuildContext context, int index) {
+    return Text('${notes[index]}');
   }
 
   
