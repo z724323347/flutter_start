@@ -19,7 +19,7 @@ class CategoryProvide with ChangeNotifier {
     childIndex = 0;
     categoryId = id;
     BxMallSubDto all = BxMallSubDto.fromParams();
-    all.mallSubId = '00';
+    all.mallSubId = '';
     all.mallSubName = '全部';
     all.mallCategoryId = '00';
     all.comments = '0';

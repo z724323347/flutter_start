@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_pro/config/service_method.dart';
 import 'package:flutter_pro/util/toast.dart';
+import '../routers/application.dart';
 
 class HotGoods extends StatefulWidget {
   _HotGoodsState createState() => _HotGoodsState();
@@ -73,7 +74,10 @@ class _HotGoodsState extends State<HotGoods> {
     if(hotGoodsList.length!=0){
        List<Widget> listWidget = hotGoodsList.map((val){
           return InkWell(
-            onTap:(){Toast.showCenter('点击了热门商品');},
+            onTap:(){
+              Toast.showCenter('点击了热门商品');
+              Application.router.navigateTo(context, '/detail?id=${val['goodsId']}');
+              },
             child: 
             Container(
               width: ScreenUtil().setWidth(372),

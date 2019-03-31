@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'apppages/index_page.dart';
 
 import 'package:provide/provide.dart';
+import 'package:fluro/fluro.dart';
+
+import './routers/application.dart';
+import './routers/routes.dart';
 
 import './provide/counter.dart';
 import './provide/category_provide.dart';
 import './provide/category_goodslist_provide.dart';
+import './provide/details_info_provide.dart';
 import 'package:flutter_pro/pages/navbottombar.dart';
 
 void main() {
@@ -13,12 +18,17 @@ void main() {
   var counter = Counter();
   var categoryChild = CategoryProvide();
   var categoryGoodsList =CategoryGoodsListProvide();
+  var detailsInfoProvide =DetailsInfoProvide();
   var providers = Providers();
+
+  // final router = Router();
 
   providers
   ..provide(Provider<Counter>.value(counter))
   ..provide(Provider<CategoryProvide>.value(categoryChild))
-  ..provide(Provider<CategoryGoodsListProvide>.value(categoryGoodsList));
+  ..provide(Provider<CategoryGoodsListProvide>.value(categoryGoodsList))
+  ..provide(Provider<DetailsInfoProvide>.value(detailsInfoProvide));
+
   //provide 多个状态的管理， .. 函数添加其它状态 exp.
   // ..provide(Provider<Other>.value(other));
 
@@ -31,21 +41,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final router = Router();
+    Routes.configRoutes(router);
+    Application.router = router;
+
     return Container(
       child: MaterialApp(
 
         title: "Material",
         // 去掉右上角debug 图标 ， 默认 true显示
         debugShowCheckedModeBanner: false,
+        // flutter 路由配置
+        onGenerateRoute: Application.router.generator,
 
         theme: ThemeData(
           primarySwatch: Colors.lightBlue
         ),
 
         // 测试入口   定义底部导航栏
-         home: NavbottomBar(),
+        //  home: NavbottomBar(),
         //项目入口
-      //  home: IndexPage(),
+       home: IndexPage(),
       ),
     );
   }

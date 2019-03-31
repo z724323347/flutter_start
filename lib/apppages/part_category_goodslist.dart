@@ -104,6 +104,7 @@ void _getMoreList() async {
       CategoryGoodsListModel goodsList =  CategoryGoodsListModel.fromJson(data);
 
       if (goodsList.data == null) {
+        Toast.showCenter('已经到底了 ~~~');
         Provide.value<CategoryProvide>(context).changeLoadingText('没有更多数据');
       } else {
         Provide.value<CategoryGoodsListProvide>(context).getMoreGoodsList(goodsList.data);
