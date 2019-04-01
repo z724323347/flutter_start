@@ -182,11 +182,14 @@ class PlayerState extends State<Player> {
                 if (isPlaying)
                   audioPlayer.pause();
                 else {
-                  audioPlayer.play(
-                    widget.audioUrl,
-                    isLocal: widget.isLocal,
-                    volume: widget.volume,
-                  );
+                  // audioPlayer.play(
+                  //   // widget.audioUrl,
+                  //   'http://music.163.com/song/media/outer/url?id=451703096.mp3',
+                  //   isLocal: widget.isLocal,
+                  //   volume: widget.volume,
+                  //   position: null
+                  // );
+                  _play();
                 }
                 setState(() {
                   isPlaying = !isPlaying;
@@ -232,4 +235,11 @@ class PlayerState extends State<Player> {
       ),
     ];
   }
+
+  Future<int> _play() async {
+    final result =
+        await audioPlayer.play(widget.audioUrl, isLocal: widget.isLocal,volume: widget.volume);
+    return result;
+  }
+  
 }
