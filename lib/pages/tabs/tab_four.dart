@@ -8,6 +8,7 @@ import 'package:flutter_pro/model/test_model.dart';
 import 'package:flutter_pro/util/dbhelper.dart';
 import 'package:flutter_pro/pages/custom_route.dart';
 import 'package:flutter_pro/pages/netease/netease_page.dart';
+import 'package:flutter_pro/pages/demo/nested_scroll_demo.dart';
 
 class TabViewFourPage extends StatefulWidget {
 
@@ -85,6 +86,16 @@ class _TabViewFourPageState extends State<TabViewFourPage> with SingleTickerProv
                   );
               },
             ),
+
+            RaisedButton(
+              child: Text('打开 NestedScrollDemo!'),
+              onPressed: (){
+                  Navigator.of(context).push(
+                    CustomRoute(NestedScrollDemoPage())
+                  );
+              },
+            ),
+
 
             //sqlite
             ButtonBar(

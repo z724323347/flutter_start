@@ -56,13 +56,15 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: Application.router.generator,
 
         theme: ThemeData(
+          // IOS 侧边滑动返回上一页
+          platform: TargetPlatform.iOS,
           primarySwatch: Colors.lightBlue
         ),
 
         // 测试入口   定义底部导航栏
-        //  home: NavbottomBar(),
+         home: NavbottomBar(),
         //项目入口
-       home: IndexPage(),
+      //  home: IndexPage(),
       ),
     );
   }

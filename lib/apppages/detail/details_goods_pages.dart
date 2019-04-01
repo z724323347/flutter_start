@@ -12,10 +12,17 @@ class GoodsDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getBackInfo(context);
-    return Container(
-      child: Center(
-        child: Text(
-          'goodsId : ${goodsId}'
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          '详情'
+        ),
+      ),
+      body: Container(
+        child: Center(
+          child: Text(
+            'goodsId : ${goodsId}'
+          ),
         ),
       ),
     );

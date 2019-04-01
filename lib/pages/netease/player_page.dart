@@ -151,7 +151,7 @@ class PlayerState extends State<Player> {
   }
 
   List<Widget> _controllers(BuildContext context) {
-    print("_controllers");
+    print("============   _controllers");
 
     return [
       lyric != null ? panel : null,
@@ -191,6 +191,7 @@ class PlayerState extends State<Player> {
                 setState(() {
                   isPlaying = !isPlaying;
                   widget.onPlaying(isPlaying);
+                  print('audioPlayer.play :  ${widget.audioUrl}' );
                 });
               },
               padding: const EdgeInsets.all(0.0),
