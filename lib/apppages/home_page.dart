@@ -14,6 +14,7 @@ import 'part_lead_phone.dart';
 import 'part_recommend.dart';
 import 'part_floor.dart';
 import 'part_hot_goods.dart';
+import '../routers/application.dart';
 
 class HomePage extends StatefulWidget {
   final Widget child;
@@ -154,7 +155,13 @@ class SwiperDiy extends StatelessWidget {
       width: ScreenUtil().setWidth(750),
       child: Swiper(
         itemBuilder: (BuildContext context,int index){
-          return Image.network("${swiperDataList[index]['image']}",fit:BoxFit.fill);
+          return InkWell(
+            onTap: () {
+              Application.router.navigateTo(context, '/detail?id=${swiperDataList[index]['goodsId']}');
+            },
+            child: Image.network("${swiperDataList[index]['image']}",fit:BoxFit.fill),
+          );
+          
         },
         itemCount: swiperDataList.length,
         pagination: new SwiperPagination(),

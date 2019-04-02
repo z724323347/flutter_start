@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../util/toast.dart';
+import '../routers/application.dart';
 
 //商品推荐，横着的ListView
 class Recommend extends StatelessWidget {
@@ -25,10 +26,11 @@ class Recommend extends StatelessWidget {
     );
   }
 
-  Widget _buildItem(index ) {
+  Widget _buildItem(context,index ) {
     return InkWell(
       onTap: (){
         Toast.showCenter("/detail?id=${recommendList[index]['goodsId']}");
+        Application.router.navigateTo(context, '/detail?id=${recommendList[index]['goodsId']}');
       },
       child: Container(
         height: ScreenUtil().setHeight(330) ,
@@ -71,7 +73,7 @@ class Recommend extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount:recommendList.length ,
               itemBuilder: (context,index){
-                return _buildItem(index);
+                return _buildItem(context,index);
               },
             ) ,
           ),

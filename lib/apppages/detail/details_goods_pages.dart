@@ -11,50 +11,8 @@ class GoodsDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getBackInfo(context);
+    
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(
-      //     '详情'
-      //   ),
-      // ),
-      // body: Container(
-      //   child: Center(
-      //     child: Text(
-      //       'goodsId : ${goodsId}'
-      //     ),
-      //   ),
-      // ),
-
-      // body: DefaultTabController(
-      //   length:1,
-      //   child: NestedScrollView(
-      //     headerSliverBuilder: (context,innerScrolled) {
-      //       SliverOverlapAbsorber(
-      //         // 传入 handle 值，直接通过 `sliverOverlapAbsorberHandleFor` 获取即可
-      //         handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-      //         child: SliverAppBar(
-      //           pinned: true,
-      //           title: Text('NestedScroll',style: TextStyle(color: Colors.white)),
-      //           iconTheme: IconThemeData(color: Colors.white),
-      //           expandedHeight: 300.0,
-      //           automaticallyImplyLeading: true,
-                          
-      //           flexibleSpace: FlexibleSpaceBar(
-      //             background: Image.network('http://qukufile2.qianqian.com/data2/pic/82f18658afb324539af546dab197d81f/612985429/612985429.jpg@s_2,w_1000,h_1000', fit: BoxFit.cover),
-      //             //背景折叠动画
-      //             collapseMode: CollapseMode.parallax,
-      //             ),
-      //           // 强制显示阴影
-      //           // forceElevated: innerScrolled,  
-      //         ),
-      //       );
-      //     },
-      //     body: Center(
-      //       child: Text('goodsId : ${goodsId}'),
-      //     ),
-      //   ),
-      // ),
 
       body: new CustomScrollView(
         slivers: <Widget>[
@@ -100,22 +58,50 @@ class GoodsDetailsPage extends StatelessWidget {
           // ),
 
           new SliverFixedExtentList(
-            itemExtent: 100.0,
+            itemExtent: 400.0,
             delegate:
-              // SliverChildBuilderDelegate((content ,index) {
-              //   ListView(
-              //     children: <Widget>[
-              //       Container(
-              //         child: Center(
-              //           child: Text('goodsId : ${goodsId}'),
-              //         ),
-              //       ),
-              //     ],
-              //   );
-              // }),
-                new SliverChildBuilderDelegate((context, index) => new ListTile(
-                      title: new Text("List item $index  goodsId : ${goodsId}"),
-                    )),
+              SliverChildBuilderDelegate((content ,index) {
+                return FutureBuilder(
+                  future: getBackInfo(context),
+                  builder: (context,snapshot){
+                    if(snapshot.hasData){
+                      return Container(
+                        child: Column(
+                          children: <Widget>[
+                            Text('完成加载 : ${snapshot.data}')
+                          ],
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        child: Center(
+                          child: Text('加载失败 : ${goodsId}'),
+                        ),
+                      );
+                    }
+                  },
+
+                );
+
+                // return Container(
+                //   alignment: Alignment.center,
+                //   child: InkWell(
+                //     onTap: (){
+
+                //     },
+                //     child: Column(
+                //       children: <Widget>[
+                //         Padding(
+                //           padding: const EdgeInsets.all(0.0),
+                //           child: Text('goodsId : ${goodsId}'),
+                //         )
+                //       ],
+                //     ),
+                //   ),
+                // );
+        
+              },childCount: 1),
+              
           ),
         ],
       ),
@@ -124,8 +110,8 @@ class GoodsDetailsPage extends StatelessWidget {
     );
   }
 
-  void getBackInfo(BuildContext context) async{
+  Future getBackInfo(BuildContext context) async{
     await Provide.value<DetailsInfoProvide>(context).getGoodsInfo(goodsId);
-    print('加载完成......');
+    return 'responseData : {code: 0, message: success, data: {data:datas}';
   }
 }
