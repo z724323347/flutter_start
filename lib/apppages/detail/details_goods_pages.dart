@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 
 import 'package:flutter_pro/provide/details_info_provide.dart';
+import './details_cell_top.dart';
 
 
 class GoodsDetailsPage extends StatelessWidget {
@@ -58,7 +59,7 @@ class GoodsDetailsPage extends StatelessWidget {
           // ),
 
           new SliverFixedExtentList(
-            itemExtent: 400.0,
+            itemExtent: 600.0,
             delegate:
               SliverChildBuilderDelegate((content ,index) {
                 return FutureBuilder(
@@ -68,6 +69,7 @@ class GoodsDetailsPage extends StatelessWidget {
                       return Container(
                         child: Column(
                           children: <Widget>[
+                            DetailsTopCell(),
                             Text('完成加载 : ${snapshot.data}')
                           ],
                         ),

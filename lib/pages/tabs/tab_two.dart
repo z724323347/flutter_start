@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'dart:io';
 import 'package:http/http.dart' as client;
 import 'package:flutter/services.dart';
+import 'package:device_info/device_info.dart';
 
 import 'package:flutter_pro/util/toast.dart';
 
@@ -37,6 +38,14 @@ class _TabViewTwoPageState extends State<TabViewTwoPage> {
                   });
                 },
               ),  
+
+              RaisedButton(
+                onPressed: () {
+                  _getDevInfo();
+                },
+                child: Text('获取设备信息'),
+              ),
+
           ],
         ),
       ),
@@ -64,5 +73,19 @@ class _TabViewTwoPageState extends State<TabViewTwoPage> {
     } catch (e) {
       print(e);
     }
+  }
+
+  //查看多平台设备信息参数
+  _getDevInfo() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    if(Platform.isIOS){
+        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+        // print('Running on ${iosInfo.utsname.machine}');  // e.g. "iPod7,1"
+        Toast.showCenter('Running on ${iosInfo.utsname.machine}');
+    } else if(Platform.isAndroid){
+        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+        Toast.showCenter('Running on ${androidInfo.model}');
+    }
+   
   }
 }
