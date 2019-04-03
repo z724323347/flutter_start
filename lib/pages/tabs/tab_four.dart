@@ -10,6 +10,7 @@ import 'package:flutter_pro/pages/custom_route.dart';
 import 'package:flutter_pro/pages/netease/netease_page.dart';
 import 'package:flutter_pro/pages/demo/nested_scroll_demo.dart';
 import 'package:flutter_pro/pages/demo/wechat_demo.dart';
+import 'package:flutter_pro/pages/demo/chart_demo.dart';
 
 class TabViewFourPage extends StatefulWidget {
 
@@ -102,6 +103,14 @@ class _TabViewFourPageState extends State<TabViewFourPage> with SingleTickerProv
                   Navigator.of(context).push(
                     CustomRoute(WechatDemoPage())
                   );
+              },
+            ),
+            RaisedButton(
+              child: Text('chart demo'),
+              onPressed: (){
+                Navigator.of(context).push(
+                  CustomRoute(ChartPieDemo())
+                );
               },
             ),
 
