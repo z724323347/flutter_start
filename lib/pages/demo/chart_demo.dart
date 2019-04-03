@@ -51,10 +51,10 @@ class _ChartPieDemoState extends State<ChartPieDemo> {
   Widget _buildHeader() {
     return Container(
       color: Color(0xfff4f4f4),
-      width: 300,
-      height: 300,
+      width: 440,
+      height: 400,
       child: Card(
-        margin: EdgeInsets.all(10.0),
+        margin: EdgeInsets.all(0.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -73,8 +73,8 @@ class _ChartPieDemoState extends State<ChartPieDemo> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 new Container(
-                  width: 90.0,
-                  height: 90.0,
+                  width: 120.0,
+                  height: 120.0,
                   padding: const EdgeInsets.only(bottom: 20.0),
                   child: new PieChart(mData, pieData, currentSelect),
                 ),

@@ -52,8 +52,8 @@ class PieChartView extends CustomPainter {
     // TODO: implement paint
     _mPaint = new Paint();
     textPaint = new Paint();
-    mWidth = 100;
-    mHeight = 100;
+    mWidth = 200;
+    mHeight = 200;
 
     // 生成纵轴的文字的TextPaniter
     TextPainter textPainter = new TextPainter(
@@ -67,16 +67,16 @@ class PieChartView extends CustomPainter {
             text: text,
             style: TextStyle(
               color: Colors.black,
-              fontSize: 10.0
+              fontSize: 20.0
             )
           );
     }
 
 
     //正常半径
-    mRadius = 50.0;
+    mRadius = 100.0;
     //加大半径  用来绘制被选中的扇形区域
-    mBigRadius = 51.0;
+    mBigRadius = 102.0;
     //內园半径
     mInnerRadius = mRadius * 0.8;
     // 未选中的扇形绘制的矩形区域
@@ -125,8 +125,8 @@ class PieChartView extends CustomPainter {
     var tp = _newVerticalAxisTextPainter(texts)..layout();
 
     //Text的绘制起始点 = 可用宽度 - 文字宽度 - 左边距
-    var textLeft = 35.0;
-    tp.paint(canvas, Offset(textLeft, 50.0 - tp.height / 2));
+    var textLeft = 80.0;
+    tp.paint(canvas, Offset(textLeft, 100.0 - tp.height / 2));
 
   }
 
