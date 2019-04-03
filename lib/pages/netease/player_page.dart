@@ -239,6 +239,7 @@ class PlayerState extends State<Player> {
   Future<int> _play() async {
     final result =
         await audioPlayer.play(widget.audioUrl, isLocal: widget.isLocal,volume: widget.volume);
+    print('result  : ${result}');    
     return result;
   }
   
