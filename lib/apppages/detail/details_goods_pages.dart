@@ -3,6 +3,8 @@ import 'package:provide/provide.dart';
 
 import 'package:flutter_pro/provide/details_info_provide.dart';
 import './details_cell_top.dart';
+import './details_cell_explain.dart';
+import './details_cell_tabbar.dart';
 
 
 class GoodsDetailsPage extends StatelessWidget {
@@ -38,7 +40,7 @@ class GoodsDetailsPage extends StatelessWidget {
             textTheme: TextTheme(), //字体样式
             primary: true, // appbar是否显示在屏幕的最上面，为false是显示在最上面，为true就显示在状态栏的下面
             titleSpacing: 16, //标题两边的空白区域
-            expandedHeight: 240.0, //默认高度是状态栏和导航栏的高度，如果有滚动视差的话，要大于前两者的高度
+            expandedHeight: 200.0, //默认高度是状态栏和导航栏的高度，如果有滚动视差的话，要大于前两者的高度
             floating: false, //滑动到最上面，再滑动是否隐藏导航栏的文字和标题等的具体内容，为true是隐藏，为false是不隐藏
             pinned: true, //是否固定导航栏，为true是固定，为false是不固定，往上滑，导航栏可以隐藏
             snap:
@@ -67,9 +69,11 @@ class GoodsDetailsPage extends StatelessWidget {
                   builder: (context,snapshot){
                     if(snapshot.hasData){
                       return Container(
-                        child: Column(
+                        child: ListView(
                           children: <Widget>[
                             DetailsTopCell(),
+                            DetailsExplinCell(),
+                            DetailsTabBarCell(),
                             Text('完成加载 : ${snapshot.data}')
                           ],
                         ),
@@ -114,6 +118,7 @@ class GoodsDetailsPage extends StatelessWidget {
 
   Future getBackInfo(BuildContext context) async{
     await Provide.value<DetailsInfoProvide>(context).getGoodsInfo(goodsId);
-    return 'responseData : {code: 0, message: success, data: {data:datas}';
+    // return 'responseData : {code: 0, message: success, data: {data:datas}';
+    return 'ok';
   }
 }

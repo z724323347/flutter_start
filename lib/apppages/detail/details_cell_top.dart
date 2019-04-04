@@ -22,7 +22,8 @@ class DetailsTopCell extends StatelessWidget {
               children: <Widget>[
                 _buildImage(goodsInfo.image1),
                 _buildName(goodsInfo.goodsName),
-                _buildNumber(goodsInfo.goodsSerialNumber)
+                _buildNumber(goodsInfo.goodsSerialNumber),
+                _buildPrice(goodsInfo.presentPrice,goodsInfo.oriPrice)
               ],
             ),
           );
@@ -74,7 +75,8 @@ class DetailsTopCell extends StatelessWidget {
       margin: EdgeInsets.only(top: 8.0),
       child: Row(
         children: <Widget>[
-          Text('data: ${price}')
+          Text('秒杀价 : ￥${price}',style: TextStyle(fontSize: 20, color: Colors.red),),
+          Text('    原价 : ￥${oldPrice}'),
         ],
       ),
     );
