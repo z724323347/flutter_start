@@ -11,6 +11,7 @@ import 'package:flutter_pro/pages/netease/netease_page.dart';
 import 'package:flutter_pro/pages/demo/nested_scroll_demo.dart';
 import 'package:flutter_pro/pages/demo/wechat_demo.dart';
 import 'package:flutter_pro/pages/demo/chart_demo.dart';
+import '../../pages/demo/websocket_demo.dart';
 
 class TabViewFourPage extends StatefulWidget {
 
@@ -110,6 +111,14 @@ class _TabViewFourPageState extends State<TabViewFourPage> with SingleTickerProv
               onPressed: (){
                 Navigator.of(context).push(
                   CustomRoute(ChartPieDemo())
+                );
+              },
+            ),
+            RaisedButton(
+              child: Text('websocket demo'),
+              onPressed: (){
+                Navigator.of(context).push(
+                  CustomRoute(WebSocketDemo())
                 );
               },
             ),
