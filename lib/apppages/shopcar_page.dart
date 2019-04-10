@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:provide/provide.dart';
 import '../provide/counter.dart';
+import '../util/sp_utils.dart';
 
 
 // class CartPage extends StatelessWidget {
@@ -67,7 +68,7 @@ class _CartPageState extends State<CartPage> {
 
   List<String> textList = [];
   SharedPreferences sp;
-  
+
   @override
   Widget build(BuildContext context) {
     _show();
@@ -108,7 +109,8 @@ class _CartPageState extends State<CartPage> {
 
   //add
   void _add() async {
-    sp = await SharedPreferences.getInstance();
+    sp = await SpUtil().sp;
+
     String temp = 'SharedPreferences demo ~!';
     textList.add(temp);
     sp.setStringList('key1', textList);
@@ -117,7 +119,7 @@ class _CartPageState extends State<CartPage> {
 
   //_clear
   void _clear() async {
-    sp = await SharedPreferences.getInstance();
+    sp = await SpUtil().sp ;
     sp.remove('key1');
     // sp.clear();
     setState(() {
@@ -128,7 +130,7 @@ class _CartPageState extends State<CartPage> {
 
   //_show
   void _show() async {
-    sp = await SharedPreferences.getInstance();
+    sp = await SpUtil().sp ;
     if (sp.getStringList('key1') != null) {
       setState(() {
        textList = sp.getStringList('key1');
