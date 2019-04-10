@@ -29,9 +29,9 @@ public class MainActivity extends FlutterActivity {
        public void onMethodCall(MethodCall methodCall, Result result) {
           if(methodCall.method.equals("interaction")){
               //跳转native 页面
-              Intent intent = new Intent(MainActivity.this,KotilnActivity.class);
-              startActivity(intent);
-              result.success("success");
+//              Intent intent = new Intent(MainActivity.this,KotilnDemo.class);
+//              startActivity(intent);
+//              result.success("success");
           } else {
               result.notImplemented();
           }

@@ -35,27 +35,27 @@ class WebPageState extends State<WebPage>{
   void initState() {
     onStateChanged = flutterWebViewPlugin.onStateChanged.listen((WebViewStateChanged state){
       // state.type是一个枚举类型，取值有：WebViewState.shouldStart, WebViewState.startLoad, WebViewState.finishLoad
-      switch (state.type) {
-        case WebViewState.shouldStart:
-        // 准备加载
-          setState(() {
-            loading = true;
-          });
-          break;
-        case WebViewState.startLoad:
-        // 开始加载
-          break;
-        case WebViewState.finishLoad:
-        // 加载完成
-          setState(() {
-            loading = false;
-          });
-          if (isLoadingCallbackPage) {
-            // 当前是回调页面，则调用js方法获取数据
-            parseResult();
-          }
-          break;
-      }
+      // switch (state.type) {
+      //   case WebViewState.shouldStart:
+      //   // 准备加载
+      //     setState(() {
+      //       loading = true;
+      //     });
+      //     break;
+      //   case WebViewState.startLoad:
+      //   // 开始加载
+      //     break;
+      //   case WebViewState.finishLoad:
+      //   // 加载完成
+      //     setState(() {
+      //       loading = false;
+      //     });
+      //     if (isLoadingCallbackPage) {
+      //       // 当前是回调页面，则调用js方法获取数据
+      //       parseResult();
+      //     }
+      //     break;
+      // }
     });
   }
   // 解析WebView中的数据
