@@ -66,6 +66,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
 
   List<String> textList = [];
+  String tempText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +81,8 @@ class _CartPageState extends State<CartPage> {
               itemBuilder: (context,index) {
                 return ListTile(
                   title: Text(
-                    textList[index]
+                    // textList[index]
+                    tempText
                   ),
                 );
               },
@@ -129,17 +131,16 @@ class _CartPageState extends State<CartPage> {
   //_show
   void _show() async {
     var sp = await SpUtil().init ;
-    if (sp.getStringList('key1') != null) {
-      setState(() {
-       textList = sp.getStringList('key1');
-      });
-    }
-    // var sp = SpUtil();
     // if (sp.getStringList('key1') != null) {
     //   setState(() {
-    //    textList = sp.getStringList('key1'); 
+    //    textList = sp.getStringList('key1');
     //   });
     // }
+    if(sp.getString('cartInfo') != null) {
+      setState(() {
+       tempText = sp.getString('cartInfo'); 
+      });
+    }
   }
 
 }

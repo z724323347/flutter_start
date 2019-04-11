@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../provide/cart_goodslist_provide.dart';
 import '../../provide/details_info_provide.dart';
 import '../../util/toast.dart';
 
@@ -10,6 +11,14 @@ class DetailsBottomCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var goodsInfo = Provide.value<DetailsInfoProvide>(context).goodsInfo.data.goodInfo;
+    var goodsId = goodsInfo.goodsId;
+    var goodsName = goodsInfo.goodsName;
+    var count = 1;
+    var price = goodsInfo.presentPrice;
+    var image = goodsInfo.image1;
+    
     return Container(
       width: ScreenUtil().setWidth(750),
       height: ScreenUtil().setHeight(72),
@@ -32,8 +41,9 @@ class DetailsBottomCell extends StatelessWidget {
           ),
 
           InkWell(
-            onTap: (){
+            onTap: () async {
               Toast.showCenter('add cart');
+              await Provide.value<CartGoodListProvide>(context).save(goodsId, goodsName, count, price, image);
             },
             child: Container(
               width: ScreenUtil().setWidth(300),
@@ -48,8 +58,9 @@ class DetailsBottomCell extends StatelessWidget {
           ),
 
           InkWell(
-            onTap: (){
+            onTap: () async {
               Toast.showCenter(' soon');
+              await Provide.value<CartGoodListProvide>(context).remove();
             },
             child: Container(
               width: ScreenUtil().setWidth(300),
