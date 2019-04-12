@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 
 import '../util/sp_utils.dart';
+import '../model/cart_goodsinfo_model.dart';
 
 class CartGoodListProvide with ChangeNotifier{
   String cartString = '[]';
+  List<CartGoodsInfoModel> cartInfoList = [];
 
   save(goodsId,goodsName,count,price,images) async{
     //初始化SharedPreferences
@@ -21,31 +23,55 @@ class CartGoodListProvide with ChangeNotifier{
       //如果存在，数量进行+1操作
       if(item['goodsId'] == goodsId){
         tempList[ival]['count'] = item['count']+1;
+        cartInfoList[ival].count++;
         isHave = true;
       }
       ival++;
     });
     //如果没有，进行增加
     if(!isHave){
-      tempList.add({
+      Map<String,dynamic> newGoodsInfo = {
         'goodsId':goodsId,
         'goodsName':goodsName,
         'count':count,
         'price':price,
         'images':images
-      });
+      };
+      tempList.add(newGoodsInfo);
+      cartInfoList.add(CartGoodsInfoModel.fromJson(newGoodsInfo));
     }
     //把字符串进行encode操作，
     cartString = json.encode(tempList).toString();
-    print('添加 set： ${cartString}');
+    print('添加 set >>>>>> ： ${cartString}');
+    print('添加 model >>>>>> ： ${cartInfoList}');
     prefs.setString('cartInfo', cartString);
+    notifyListeners();
   }
 
   remove() async {
     var prefs = await SpUtil().init;
     prefs.remove('cartInfo');
+    cartInfoList = [];
     print('清空完成----------------\n : ${prefs.getString('cartInfo')}');
+    print('清空model--------------\n ： ${cartInfoList}');
     notifyListeners();
   }
   
+  getCartGoodsInfo() async {
+    var prefs = await SpUtil().init;
+    cartString = prefs.getString('cartInfo');
+    cartInfoList = [];
+    if (cartString == null) {
+      cartInfoList = [];
+    } else {
+      //temp list
+      List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
+      //遍历
+      tempList.forEach((item) {
+        cartInfoList.add(CartGoodsInfoModel.fromJson(item));
+      });
+    }
+    notifyListeners();
+  }
+
 }
