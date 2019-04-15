@@ -56,7 +56,8 @@ class CartGoodListProvide with ChangeNotifier{
     print('清空model--------------\n ： ${cartInfoList}');
     notifyListeners();
   }
-  
+
+  //得到购物车中的商品
   getCartGoodsInfo() async {
     var prefs = await SpUtil().init;
     cartString = prefs.getString('cartInfo');
@@ -73,5 +74,6 @@ class CartGoodListProvide with ChangeNotifier{
     }
     notifyListeners();
   }
+
 
 }
