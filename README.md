@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-# flutter_start
-flutter 入门项目
-=======
+
 # flutter_pro
 
 A new Flutter project.
