@@ -40,6 +40,8 @@ dependencies:
   web_socket_channel: ^1.0.12
   image_picker: ^0.5.2
   shared_preferences: ^0.5.1
+  qr_flutter: ^2.0.0
+  qr_mobile_vision: ^0.2.2
 
 
   device_info: ^0.4.0+1

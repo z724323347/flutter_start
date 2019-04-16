@@ -5,6 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:device_info/device_info.dart';
 
 import 'package:flutter_pro/util/toast.dart';
+import 'package:flutter_pro/pages/custom_route.dart';
+import '../demo/qr_scan_demo.dart';
+import '../demo/qr_scaning_demo.dart';
+
 
 class TabViewTwoPage extends StatefulWidget {
 
@@ -44,6 +48,24 @@ class _TabViewTwoPageState extends State<TabViewTwoPage> {
                   _getDevInfo();
                 },
                 child: Text('获取设备信息'),
+              ),
+
+              RaisedButton(
+              child: Text('QR Code 生成!'),
+              onPressed: (){
+                  Navigator.of(context).push(
+                    CustomRoute(QrScanPage())
+                  );
+                },
+              ),
+
+              RaisedButton(
+              child: Text('QR Code 扫描!'),
+              onPressed: (){
+                  Navigator.of(context).push(
+                    CustomRoute(QrScaningPage())
+                  );
+                },
               ),
 
           ],
