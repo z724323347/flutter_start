@@ -8,6 +8,7 @@ import 'package:flutter_pro/util/toast.dart';
 import 'package:flutter_pro/pages/custom_route.dart';
 import '../demo/qr_scan_demo.dart';
 import '../demo/qr_scaning_demo.dart';
+import '../demo/qr_barcode_scan.dart';
 
 
 class TabViewTwoPage extends StatefulWidget {
@@ -65,6 +66,15 @@ class _TabViewTwoPageState extends State<TabViewTwoPage> {
                   Navigator.of(context).push(
                     CustomRoute(QrScaningPage())
                   );
+                },
+              ),
+
+              RaisedButton(
+              child: Text('QrBarcodeScan !'),
+              onPressed: (){
+                  // Navigator.of(context).push(
+                  //   CustomRoute(QrBarcodeScan())
+                  // );
                 },
               ),
 
