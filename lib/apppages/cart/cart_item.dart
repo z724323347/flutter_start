@@ -5,6 +5,8 @@ import 'package:provide/provide.dart';
 import '../../provide/cart_goodslist_provide.dart';
 import '../../model/cart_goodsinfo_model.dart';
 import '../../util/toast.dart';
+import '../cart/cart_count.dart';
+
 
 class CartItem extends StatelessWidget {
   final CartGoodsInfoModel item;
@@ -66,57 +68,15 @@ class CartItem extends StatelessWidget {
     return Container(
       width: ScreenUtil().setWidth(300),
       padding: EdgeInsets.all(10.0),
-      // alignment: Alignment.topLeft,
+      // alignment: Alignment.centerLeft,
       child: Column(
         children: <Widget>[
           Text(
             item.goodsName
           ),
-
-          Container(
-            width: ScreenUtil().setWidth(140),
-            // alignment: Alignment.topLeft,
-            child: Row(
-              children: <Widget>[
-                Container(
-                  width: ScreenUtil().setWidth(20),
-                  alignment: Alignment.centerRight,
-                  margin: EdgeInsets.all(5.0),
-                  child: InkWell(
-                    onTap: () {
-                     
-                    },
-                    child: Text('-'),
-                  ),
-                ),
-
-                Container(
-                  width: ScreenUtil().setWidth(50),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 1,color: Colors.black26),
-                    borderRadius: BorderRadius.circular(3.0) 
-                  ),
-                  child: Text('${item.count}'),
-                ),
-
-                Container(
-                  width: ScreenUtil().setWidth(20),
-                  alignment: Alignment.centerLeft,
-                  margin: EdgeInsets.all(5.0),
-                  child: InkWell(
-                    onTap: () async {
-                      await Provide.value<CartGoodListProvide>(context)
-                            .save(item.goodsId, item.goodsName, item.count++, item.price, item.images);
-                    },
-                    child: Text('+'),
-                  ),
-                ),
-
-              ],
-            ),
-          )
-
+          
+          CartCountCell(this.item),
+          
         ],
       ),
     );
