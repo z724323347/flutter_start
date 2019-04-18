@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provide/provide.dart';
+
+import '../../provide/cart_goodslist_provide.dart';
 import '../../model/cart_goodsinfo_model.dart';
 import '../../util/toast.dart';
 
@@ -10,18 +13,24 @@ class CartBottomCell extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(5.0),
       color: Colors.white,
-      child: Row(
-        children: <Widget>[
-          selectAll(),
-          countArea(),
-          goButton()
-        ],
+      child: Provide<CartGoodListProvide>(
+        builder: (context,child, childItem) {
+          return Row(
+            children: <Widget>[
+              selectAll(context),
+              countArea(context),
+              goButton(context)
+            ],
+          );
+        },
       ),
+      
+      
     );
   }
 
   //全选
-  Widget selectAll() {
+  Widget selectAll(context) {
     return Container(
       child: Row(
         children: <Widget>[
@@ -39,7 +48,8 @@ class CartBottomCell extends StatelessWidget {
   }
 
   //合计
-  Widget countArea() {
+  Widget countArea(context) {
+    double allPrice = Provide.value<CartGoodListProvide>(context).allPrice;
     return Container(
       width: ScreenUtil().setWidth(440),
       alignment: Alignment.center,
@@ -61,7 +71,7 @@ class CartBottomCell extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 width: ScreenUtil().setWidth(160),
                 child: Text(
-                  '￥ 1992.00',
+                  '￥ ${allPrice}',
                   style: TextStyle(
                     fontSize: ScreenUtil().setSp(24),
                     color: Colors.red
@@ -85,7 +95,8 @@ class CartBottomCell extends StatelessWidget {
   } 
 
   //结算
-  Widget goButton() {
+  Widget goButton(context) {
+    int allCount = Provide.value<CartGoodListProvide>(context).allCount;
     return Container(
       width: ScreenUtil().setWidth(160),
       padding: EdgeInsets.only(left: 10.0,right: 5.0),
@@ -101,7 +112,7 @@ class CartBottomCell extends StatelessWidget {
             borderRadius: BorderRadius.circular(5.0) 
           ),
           child: Text(
-            '结算(6)',
+            '结算(${allCount})',
             style:TextStyle(
               color: Colors.white
             ),

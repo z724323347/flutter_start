@@ -27,10 +27,10 @@ class CartItem extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          _cartCheckBox(),
+          _cartCheckBox(context,item),
           _cartImage(),
           _cartGoodsName(context),
-          _cartPrice()
+          _cartPrice(context,item)
 
         ],
       ),
@@ -38,10 +38,10 @@ class CartItem extends StatelessWidget {
   }
 
   //复选框
-  Widget _cartCheckBox() {
+  Widget _cartCheckBox(context,item) {
     return Container(
       child: Checkbox(
-        value: true,
+        value: item.isCheck,
         activeColor: Colors.pink,
         onChanged: (bool val){
 
@@ -83,7 +83,7 @@ class CartItem extends StatelessWidget {
   }
 
   //价格
-  Widget _cartPrice() {
+  Widget _cartPrice(context,item) {
     return Container(
       width: ScreenUtil().setWidth(150),
       alignment: Alignment.centerRight,
@@ -94,6 +94,7 @@ class CartItem extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 Toast.showCenter('点击删除 ${item.goodsName}');
+                Provide.value<CartGoodListProvide>(context).deteleGoods(item.goodsId);
               },
               child: Icon(
                 Icons.delete_forever,

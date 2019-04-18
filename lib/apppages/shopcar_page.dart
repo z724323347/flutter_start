@@ -31,12 +31,18 @@ class _CartPageState extends State<CartPage> {
 
             return Stack(
               children: <Widget>[
-                ListView.builder(
-                  itemCount: cartList.length,
-                  itemBuilder: (context, index){
-                    return CartItem(cartList[index]);
+                Provide<CartGoodListProvide>(
+                  builder: (context,child,chidItem){
+                    cartList = Provide.value<CartGoodListProvide>(context).cartInfoList;
+                    return ListView.builder(
+                      itemCount: cartList.length,
+                      itemBuilder: (context, index){
+                        return CartItem(cartList[index]);
+                      },
+                    );
                   },
                 ),
+                
                 Positioned(
                   bottom: 0,
                   left: 0,

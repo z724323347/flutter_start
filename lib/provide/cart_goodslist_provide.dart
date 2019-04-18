@@ -7,6 +7,8 @@ import '../model/cart_goodsinfo_model.dart';
 class CartGoodListProvide with ChangeNotifier{
   String cartString = '[]';
   List<CartGoodsInfoModel> cartInfoList = [];
+  double allPrice = 0; // 总价格
+  int allCount = 0; //总数量
 
   save(goodsId,goodsName,count,price,images) async{
     //初始化SharedPreferences
@@ -35,7 +37,8 @@ class CartGoodListProvide with ChangeNotifier{
         'goodsName':goodsName,
         'count':count,
         'price':price,
-        'images':images
+        'images':images,
+        'isCheck':true
       };
       tempList.add(newGoodsInfo);
       cartInfoList.add(CartGoodsInfoModel.fromJson(newGoodsInfo));
@@ -67,12 +70,40 @@ class CartGoodListProvide with ChangeNotifier{
     } else {
       //temp list
       List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
+      allPrice = 0;
+      allCount = 0;
       //遍历
       tempList.forEach((item) {
+        if(item['isCheck']) {
+          allPrice += (item['count']*item['price']);
+          allCount += item['count'];
+        }
         cartInfoList.add(CartGoodsInfoModel.fromJson(item));
       });
     }
     notifyListeners();
+  }
+
+  //删除单个商品
+  deteleGoods(String goodsId) async{
+    var prefs = await SpUtil().init;
+    cartString = prefs.getString('cartInfo');
+    List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
+    //索引变量
+    int tempIndex = 0;
+    int deteleIndex = 0;
+    tempList.forEach((item){
+      if(item['goodsId'] == goodsId) {
+        deteleIndex = tempIndex;
+      }
+      tempIndex++;
+    });
+    tempList.removeAt(deteleIndex);
+    cartString = json.encode(tempList).toString();
+    //持久化
+    prefs.setString('cartInfo', cartString);
+    //刷新list
+    await getCartGoodsInfo();
   }
 
 
