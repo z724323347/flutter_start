@@ -9,6 +9,7 @@ class CartGoodListProvide with ChangeNotifier{
   List<CartGoodsInfoModel> cartInfoList = [];
   double allPrice = 0; // 总价格
   int allCount = 0; //总数量
+  bool isAllCheck = true; //是否全选
 
   save(goodsId,goodsName,count,price,images) async{
     //初始化SharedPreferences
@@ -72,11 +73,14 @@ class CartGoodListProvide with ChangeNotifier{
       List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
       allPrice = 0;
       allCount = 0;
+      isAllCheck = true;
       //遍历
       tempList.forEach((item) {
         if(item['isCheck']) {
           allPrice += (item['count']*item['price']);
           allCount += item['count'];
+        } else {
+          isAllCheck = false;
         }
         cartInfoList.add(CartGoodsInfoModel.fromJson(item));
       });
@@ -106,5 +110,41 @@ class CartGoodListProvide with ChangeNotifier{
     await getCartGoodsInfo();
   }
 
+  changeCheckBoxState(CartGoodsInfoModel cartItem) async {
+    var prefs = await SpUtil().init;
+    cartString = prefs.getString('cartInfo');
+    List<Map> tempList = (json.decode(cartString.toString()) as List).cast(); 
+    int tempIndex = 0;
+    int changeIndex = 0;
+    tempList.forEach((item){
+      if(item['goodsId']== cartItem.goodsId){
+        changeIndex = tempIndex;
+      }
+      tempIndex++;
+    });
+    tempList[changeIndex] = cartItem.toJson();
+    cartString = json.encode(tempList).toString();
+    prefs.setString('cartInfo', cartString);
+    //刷新list
+    await getCartGoodsInfo();
+  }
+
+  //全选操作
+  changAllCheckState(bool isCheck) async {
+    var prefs = await SpUtil().init;
+    cartString = prefs.getString('cartInfo');
+    List<Map> tempList = (json.decode(cartString.toString()) as List).cast(); 
+    List<Map> newList = [];
+    //forin 
+    for (var item in tempList) {
+      var newItem = item;
+      newItem['isCheck'] = isCheck;
+      newList.add(newItem);
+    }
+    cartString = json.encode(newList).toString();
+    prefs.setString("cartInfo", cartString);
+    //刷新list
+    await getCartGoodsInfo();
+  }
 
 }

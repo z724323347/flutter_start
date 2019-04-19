@@ -31,14 +31,15 @@ class CartBottomCell extends StatelessWidget {
 
   //全选
   Widget selectAll(context) {
+    bool isAllCheck = Provide.value<CartGoodListProvide>(context).isAllCheck;
     return Container(
       child: Row(
         children: <Widget>[
           Checkbox(
-            value: true,
+            value: isAllCheck,
             activeColor: Colors.pink,
             onChanged: (bool val) {
-
+              Provide.value<CartGoodListProvide>(context).changAllCheckState(val);
             },
           ),
           Text('全选')

@@ -44,7 +44,8 @@ class CartItem extends StatelessWidget {
         value: item.isCheck,
         activeColor: Colors.pink,
         onChanged: (bool val){
-
+          item.isCheck = val;
+          Provide.value<CartGoodListProvide>(context).changeCheckBoxState(item);
         },
       ),
     );
