@@ -99,7 +99,7 @@ class CartBottomCell extends StatelessWidget {
   Widget goButton(context) {
     int allCount = Provide.value<CartGoodListProvide>(context).allCount;
     return Container(
-      width: ScreenUtil().setWidth(160),
+      width: ScreenUtil().setWidth(180),
       padding: EdgeInsets.only(left: 10.0,right: 5.0),
       child: InkWell(
         onTap: () {

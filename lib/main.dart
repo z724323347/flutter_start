@@ -12,6 +12,7 @@ import './provide/category_provide.dart';
 import './provide/category_goodslist_provide.dart';
 import './provide/details_info_provide.dart';
 import './provide/cart_goodslist_provide.dart';
+import './provide/current_page_provide.dart';
 
 
 import 'package:flutter_pro/pages/navbottombar.dart';
@@ -19,6 +20,7 @@ import 'package:flutter_pro/pages/navbottombar.dart';
 void main() {
 
   var counter = Counter();
+  var currentPageProvide = CurrentPageProvide();
   var categoryChild = CategoryProvide();
   var categoryGoodsList =CategoryGoodsListProvide();
   var detailsInfoProvide =DetailsInfoProvide();
@@ -29,6 +31,7 @@ void main() {
 
   providers
   ..provide(Provider<Counter>.value(counter))
+  ..provide(Provider<CurrentPageProvide>.value(currentPageProvide))
   ..provide(Provider<CategoryProvide>.value(categoryChild))
   ..provide(Provider<CategoryGoodsListProvide>.value(categoryGoodsList))
   ..provide(Provider<CartGoodListProvide>.value(cartGoodListProvder))

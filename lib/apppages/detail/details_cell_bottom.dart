@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../provide/current_page_provide.dart';
 import '../../provide/cart_goodslist_provide.dart';
 import '../../provide/details_info_provide.dart';
 import '../../util/toast.dart';
@@ -25,19 +26,51 @@ class DetailsBottomCell extends StatelessWidget {
       color: Colors.white,
       child: Row(
         children: <Widget>[
-          InkWell(
-            onTap: (){
-              Toast.showCenter('cart');
-            },
-            child: Container(
-              width: ScreenUtil().setWidth(150),
-              alignment: Alignment.center,
-              child: Icon(
-                Icons.shopping_cart,
-                size: 40,
-                color: Colors.red,
+          Stack(
+            children: <Widget>[
+              InkWell(
+                onTap: (){
+                  Toast.showCenter('provide -- 进入购物车页面');
+                  Provide.value<CurrentPageProvide>(context).changIndex(2);
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  width: ScreenUtil().setWidth(150),
+                  alignment: Alignment.center,
+                  child: Icon(
+                    Icons.shopping_cart,
+                    size: 40,
+                    color: Colors.red,
+                    ),
                 ),
-            ),
+              ),
+
+              Provide<CartGoodListProvide>(
+                builder: (context,child,val) {
+                  int count = Provide.value<CartGoodListProvide>(context).allCount;
+                  return Positioned(
+                    top: 0,
+                    right: 10,
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(6, 3, 6, 3),
+                      decoration: BoxDecoration(
+                        color: Colors.pink,
+                        border: Border.all(width: 2,color: Colors.white),
+                        borderRadius: BorderRadius.circular(10.0)
+                      ),
+                      child: Text(
+                        '${count}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: ScreenUtil().setSp(20)
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+
+            ],
           ),
 
           InkWell(

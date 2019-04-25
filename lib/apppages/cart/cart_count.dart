@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provide/provide.dart';
 
 import '../../provide/cart_goodslist_provide.dart';
 import '../../model/cart_goodsinfo_model.dart';
@@ -21,40 +22,40 @@ class CartCountCell extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          _reduceBtn(),
+          _reduceBtn(context),
           _countArea(),
-          _addBtn(),
+          _addBtn(context),
         ],
       ),
     );
   }
 
   //--
-  Widget _reduceBtn() {
+  Widget _reduceBtn(context) {
     return InkWell(
       onTap: (){
-
+        Provide.value<CartGoodListProvide>(context).goodCountAddorReduce(item, 'reduce');
       },
       child: Container(
         width: ScreenUtil().setWidth(45),
         height: ScreenUtil().setHeight(45),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: item.count > 1 ? Colors.white : Colors.black12,
           border: Border(
             right: BorderSide(color: Colors.black12, width: 1.0)
           )
         ),
-        child: Text('-'),
+        child: item.count > 1 ? Text('-') : Text(' '),
       ),
     );
   }
 
   //++
-  Widget _addBtn() {
+  Widget _addBtn(context) {
     return InkWell(
       onTap: (){
-
+        Provide.value<CartGoodListProvide>(context).goodCountAddorReduce(item, 'add');
       },
       child: Container(
         width: ScreenUtil().setWidth(45),

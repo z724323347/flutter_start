@@ -22,12 +22,18 @@ class CartGoodListProvide with ChangeNotifier{
     //声明变量，用于判断购物车中是否已经存在此商品ID
     var isHave = false; 
     int ival = 0; 
+    allPrice = 0;
+    allCount = 0;
     tempList.forEach((item){//进行循环，找出是否已经存在该商品
       //如果存在，数量进行+1操作
       if(item['goodsId'] == goodsId){
         tempList[ival]['count'] = item['count']+1;
         cartInfoList[ival].count++;
         isHave = true;
+      }
+      if (item['isCheck']) {
+        allPrice += (cartInfoList[ival].price * cartInfoList[ival].count);
+        allCount += cartInfoList[ival].count;
       }
       ival++;
     });
@@ -43,6 +49,9 @@ class CartGoodListProvide with ChangeNotifier{
       };
       tempList.add(newGoodsInfo);
       cartInfoList.add(CartGoodsInfoModel.fromJson(newGoodsInfo));
+
+      allPrice += (price * count);
+      allCount += count;
     }
     //把字符串进行encode操作，
     cartString = json.encode(tempList).toString();
@@ -120,7 +129,7 @@ class CartGoodListProvide with ChangeNotifier{
       if(item['goodsId']== cartItem.goodsId){
         changeIndex = tempIndex;
       }
-      tempIndex++;
+      tempIndex++; 
     });
     tempList[changeIndex] = cartItem.toJson();
     cartString = json.encode(tempList).toString();
@@ -142,6 +151,32 @@ class CartGoodListProvide with ChangeNotifier{
       newList.add(newItem);
     }
     cartString = json.encode(newList).toString();
+    prefs.setString("cartInfo", cartString);
+    //刷新list
+    await getCartGoodsInfo();
+  }
+
+  //数量 +/-
+  goodCountAddorReduce(var cartItem , String action) async{
+    var prefs = await SpUtil().init;
+    cartString = prefs.getString('cartInfo');
+    List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
+    int tempIndex = 0;
+    int changeIndex = 0;
+    tempList.forEach((item){
+      if(item['goodsId'] == cartItem.goodsId) {
+        changeIndex = tempIndex;
+      }
+      tempIndex++;
+    });
+
+    if(action == 'add') {
+      cartItem.count++;
+    }else if(cartItem.count > 1){
+      cartItem.count--;
+    }
+    tempList[changeIndex] = cartItem.toJson();
+    cartString = json.encode(tempList).toString();
     prefs.setString("cartInfo", cartString);
     //刷新list
     await getCartGoodsInfo();
