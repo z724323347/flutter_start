@@ -20,11 +20,11 @@ class DetailsWebCell extends StatelessWidget {
         if (isLeft) {
           return Container(
             
-            child: Text('$goodsDetails'),
+            // child: Text('$goodsDetails'),
             // Html ios未知原因暂无法加载，Android 正常加载
-            // child: Html(
-            //   data: goodsDetails,
-            // ),
+            child: Html(
+              data: goodsDetails,
+            ),
           );
         } else {
           return Container(

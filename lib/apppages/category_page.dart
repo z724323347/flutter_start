@@ -190,7 +190,7 @@ class _TopCategoryNavState extends State<TopCategoryNav> {
     return Provide<CategoryProvide>(
       builder: (context, child, childCategory){
         return  Container(
-            height: ScreenUtil().setHeight(70),
+            height: ScreenUtil().setHeight(80),
             width: ScreenUtil().setWidth(560),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -220,7 +220,7 @@ class _TopCategoryNavState extends State<TopCategoryNav> {
       onTap: (){
         Provide.value<CategoryProvide>(context).changeChildIndex(index,item.mallSubId);
         _getSubGoodList(item.mallSubId);
-//        Toast.showCenter('item: ${item.mallSubName}');
+       Toast.showCenter('sub item: ${item.mallSubName}');
       },
       child: Container(
         padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),

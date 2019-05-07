@@ -10,6 +10,7 @@ import 'package:flutter_pro/util/toast.dart';
 import 'package:flutter_pro/model/category_goodslist_model.dart';
 import '../provide/category_goodslist_provide.dart';
 import '../provide/category_provide.dart';
+import '../routers/application.dart';
 
 
 //商品列表
@@ -155,7 +156,9 @@ void _getMoreList() async {
   Widget buildItem(List newList ,int index) {
     return InkWell(
       onTap: () {
-        Toast.showCenter('onTap :  ${index}');
+        // Toast.showCenter('onTap :  ${newList[index]['goodsId']}');
+        Toast.showCenter('onTap : ${newList[index].goodsName}');
+        Application.router.navigateTo(context, '/detail?id=${newList[index].goodsId}');
       },
       child: Container(
         padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
