@@ -19,12 +19,13 @@ class _OneScreenState extends State<OneScreen> {
 
   static const nativePlugin = const MethodChannel('native.plugin');
   static const platform = const MethodChannel("native.flutter.io/battery");
-  String _batteryLevel = "Unknown battery level.";
+  String _batteryLevel = "Unknown status .";
+  String tempStatus = '...';
+  static const jpush  = const MethodChannel('jpush.native/android');
 
   //相机调用
   // List<CameraDescription> cameras;
   // CameraController controller;
-
 
 
   Future<Null> _getBatteryLevel() async {
@@ -32,14 +33,15 @@ class _OneScreenState extends State<OneScreen> {
   try{
       print('dart-_getBatteryLevel');
        // 在通道上调用此方法 与native通信
-       final int result = await platform.invokeMethod('getBatteryLevel');
-       batteryLevel = 'Battery level at $result % .';
+       final String result = await platform.invokeMethod('getBatteryLevel');
+       batteryLevel = '当前状态 at $result  .';
+      print('当前状态 ： $result');
     }on PlatformException catch(e){
-      batteryLevel = "Failed to get battery level: '${e.message}'.";
+      batteryLevel = "Failed to 当前状态 : '${e.message}'.";
   }
 
     setState(() {
-     _batteryLevel = batteryLevel; 
+     _batteryLevel = batteryLevel;
     });
   }
 
@@ -66,9 +68,9 @@ class _OneScreenState extends State<OneScreen> {
              onPressed: (){
               _getBatteryLevel();
             },
-            child: Text('Get battery level,获取native method电池电量'),
+            child: Text('获取native 状态'),
           ),
-          Text('当前电量:$_batteryLevel'),
+          Text('当前:$_batteryLevel'),
 
           RaisedButton(
             child: Text('flutter webview demo'),
@@ -112,11 +114,13 @@ class _OneScreenState extends State<OneScreen> {
           ),
 
           RaisedButton(
-            child: Text('打开相机!'),
+            child: Text('打开test!'),
             onPressed: (){
                 // open();
+//              _testJPush();
             },
           ),
+          Text('$tempStatus'),
           // AspectRatio(
           //   aspectRatio:
           //   controller.value.aspectRatio,

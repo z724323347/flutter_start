@@ -6,6 +6,7 @@ import 'package:fluro/fluro.dart';
 
 import './routers/application.dart';
 import './routers/routes.dart';
+import 'package:jpush_flutter/jpush_flutter.dart';
 
 import './provide/counter.dart';
 import './provide/category_provide.dart';
@@ -45,7 +46,21 @@ void main() {
   runApp(ProviderNode(child:MyApp(), providers:providers));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final JPush jpush = new JPush();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('jpush ::::::::  ${jpush.checkNotificationStatus()}');
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +68,7 @@ class MyApp extends StatelessWidget {
     final router = Router();
     Routes.configRoutes(router);
     Application.router = router;
+
 
     return Container(
       child: MaterialApp(
@@ -70,9 +86,9 @@ class MyApp extends StatelessWidget {
         ),
 
         // 测试入口   定义底部导航栏
-        // home: NavbottomBar(),
+         home: NavbottomBar(),
         //项目入口
-        home: IndexPage(),
+//        home: IndexPage(),
       ),
     );
   }
