@@ -15,7 +15,7 @@
 //import butterknife.ButterKnife;
 //import butterknife.OnClick;
 //
-//public class KotilnDemo extends AppCompatActivity {
+//public class KotilnActivity extends AppCompatActivity {
 //
 //    @BindView(R.id.tv)
 //    TextView tv;
