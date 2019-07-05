@@ -13,7 +13,10 @@ import android.widget.Toast;
 
 import androidx.core.app.NotificationManagerCompat;
 
+import com.azhon.appupdate.base.BaseHttpDownloadManager;
+import com.azhon.appupdate.listener.OnDownloadListener;
 import com.azhon.appupdate.manager.DownloadManager;
+import com.azhon.appupdate.service.DownloadService;
 import com.example.study1.util.UpdateAppHttpUtil;
 import com.flutter.app.android.R;
 import com.google.android.material.button.MaterialButton;
@@ -143,6 +146,7 @@ public class MainActivity extends FlutterActivity {
                       .setAuthorities(getPackageName())
                       .setApkDescription("1.支持断点下载\n2.支持Android N\n3.支持Android O\n4.支持自定义下载过程\n5.支持 设备>=Android M 动态权限的申请\n6.支持通知栏进度条展示(或者自定义显示进度)")
                       .download();
+
               result.success("ok 进入更新插件了");
           }else {
               result.notImplemented();

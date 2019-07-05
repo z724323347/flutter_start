@@ -52,13 +52,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final JPush jpush = new JPush();
+  // final JPush jpush = new JPush();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('jpush ::::::::  ${jpush.checkNotificationStatus()}');
+    // print('jpush ::::::::  ${jpush.checkNotificationStatus()}');
   }
 
 
