@@ -87,7 +87,7 @@ class _OneScreenState extends State<OneScreen> {
             onPressed: (){
               print('web');
                Navigator.of(context).push(
-                CustomRoute(WebPage('webview title','https://www.qq.com/')
+                CustomRoute(WebPage('webview title','https://pc87.pechatshop.com/chat/Hotline/channel.jsp?cid=5011033&cnfid=4450&j=8450264871&s=1')
                 ),
             );
             },

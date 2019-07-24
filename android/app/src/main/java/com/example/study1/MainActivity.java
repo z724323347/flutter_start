@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationManagerCompat;
@@ -20,7 +21,12 @@ import com.azhon.appupdate.service.DownloadService;
 import com.example.study1.util.UpdateAppHttpUtil;
 import com.flutter.app.android.R;
 import com.google.android.material.button.MaterialButton;
+import com.vector.update_app.SilenceUpdateCallback;
+import com.vector.update_app.UpdateAppBean;
 import com.vector.update_app.UpdateAppManager;
+import com.vector.update_app.utils.AppUpdateUtils;
+
+import java.io.File;
 
 import io.flutter.app.FlutterActivity;
 import io.flutter.plugins.GeneratedPluginRegistrant;
@@ -123,29 +129,38 @@ public class MainActivity extends FlutterActivity {
       //更新插件
       new  MethodChannel(getFlutterView(),CHANNEL_UP).setMethodCallHandler((methodCall, result) -> {
           if (methodCall.method.equals("up")){
-//              new UpdateAppManager
-//                      .Builder()
-//                      //当前Activity
-//                      .setActivity(this)
-//                      //更新地址
-//                      .setUpdateUrl("https://raw.githubusercontent.com/WVector/AppUpdateDemo/master/json/json1.txt")
-//                      //实现httpManager接口的对象
-//                      .setHttpManager(new UpdateAppHttpUtil())
-//                      .build()
-//                      .update();
-              manager = DownloadManager.getInstance(this);
-              manager.setApkName("appupdate.apk")
-                      .setApkUrl("https://raw.githubusercontent.com/azhon/AppUpdate/master/apk/appupdate.apk")
-                      .setSmallIcon(R.mipmap.ic_launcher)
-                      .setShowNewerToast(true)
-//                      .setConfiguration(configuration)
-//                .setDownloadPath(Environment.getExternalStorageDirectory() + "/AppUpdate")
-                      .setApkVersionCode(2)
-                      .setApkVersionName("2.1.8")
-                      .setApkSize("20.4")
-                      .setAuthorities(getPackageName())
-                      .setApkDescription("1.支持断点下载\n2.支持Android N\n3.支持Android O\n4.支持自定义下载过程\n5.支持 设备>=Android M 动态权限的申请\n6.支持通知栏进度条展示(或者自定义显示进度)")
-                      .download();
+
+              new UpdateAppManager
+                      .Builder()
+                      //当前Activity
+                      .setActivity(this)
+                      //更新地址
+                      .setUpdateUrl("https://raw.githubusercontent.com/WVector/AppUpdateDemo/master/json/json.txt")
+                      //实现httpManager接口的对象
+                      .setHttpManager(new UpdateAppHttpUtil())
+                      //只有wifi下进行，静默下载(只对静默下载有效)
+                      .setOnlyWifi()
+                      .build()
+                      .checkNewApp(new SilenceUpdateCallback() {
+                          @Override
+                          protected void showDialog(UpdateAppBean updateApp, UpdateAppManager updateAppManager, File appFile) {
+                              showSilenceDiyDialog(updateApp, appFile);
+                          }
+                      });
+
+//              manager = DownloadManager.getInstance(this);
+//              manager.setApkName("appupdate.apk")
+//                      .setApkUrl("https://raw.githubusercontent.com/azhon/AppUpdate/master/apk/appupdate.apk")
+//                      .setSmallIcon(R.mipmap.ic_launcher)
+//                      .setShowNewerToast(true)
+////                      .setConfiguration(configuration)
+////                .setDownloadPath(Environment.getExternalStorageDirectory() + "/AppUpdate")
+//                      .setApkVersionCode(2)
+//                      .setApkVersionName("2.1.8")
+//                      .setApkSize("20.4")
+//                      .setAuthorities(getPackageName())
+//                      .setApkDescription("1.支持断点下载\n2.支持Android N\n3.支持Android O\n4.支持自定义下载过程\n5.支持 设备>=Android M 动态权限的申请\n6.支持通知栏进度条展示(或者自定义显示进度)")
+//                      .download();
 
               result.success("ok 进入更新插件了");
           }else {
@@ -215,4 +230,44 @@ public class MainActivity extends FlutterActivity {
         builder.create().show();
     }
 
+
+    /**
+     * 静默下载自定义对话框
+     *
+     * @param updateApp
+     * @param appFile
+     */
+    private void showSilenceDiyDialog(final UpdateAppBean updateApp, final File appFile) {
+        String targetSize = updateApp.getTargetSize();
+        String updateLog = updateApp.getUpdateLog();
+
+        String msg = "";
+
+        if (!TextUtils.isEmpty(targetSize)) {
+            msg = "新版本大小：" + targetSize + "\n\n";
+        }
+
+        if (!TextUtils.isEmpty(updateLog)) {
+            msg += updateLog;
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle(String.format("是否升级到%s版本？", updateApp.getNewVersion()))
+                .setMessage(msg)
+                .setPositiveButton("安装", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AppUpdateUtils.installApp(MainActivity.this, appFile);
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("暂不升级", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create()
+                .show();
+    }
 }

@@ -10,6 +10,7 @@ import 'package:flutter_pro/pages/custom_route.dart';
 import '../demo/qr_scan_demo.dart';
 import '../demo/qr_scaning_demo.dart';
 import '../demo/qr_barcode_scan.dart';
+import '../demo/rxdart_demo.dart';
 
 class TabViewTwoPage extends StatefulWidget {
   _TabViewTwoPageState createState() => _TabViewTwoPageState();
@@ -44,6 +45,14 @@ class _TabViewTwoPageState extends State<TabViewTwoPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            
+            OutlineButton(
+              child: Text('TestRxPage'),
+              onPressed: () {
+                Navigator.of(context).push(CustomRoute(TestRxPage()));
+              },
+            ),
+
             OutlineButton(
               child: Text('GET as client cbk'),
               onPressed: () {
