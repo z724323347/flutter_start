@@ -20,7 +20,7 @@ class _TestRxPageState extends State<TestRxPage> {
         appBar: AppBar(
           title: Text('rxdart'),
         ),
-        body: Center(
+        body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +77,8 @@ class _TestRxPageState extends State<TestRxPage> {
 
   void rxFun_() {
     List list = [1, 2, 3, 4, 5];
-    temp ?? 'unkown';
+    // List list;
+    print('list  ....... ${list?.length}');
     var obs1 = Observable(Stream.fromIterable(list));
     obs1.listen((item) {
       print('立即执行1 :${DateTime.now()} : ${item}');

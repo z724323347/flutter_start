@@ -27,6 +27,7 @@ import com.vector.update_app.UpdateAppManager;
 import com.vector.update_app.utils.AppUpdateUtils;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 
 import io.flutter.app.FlutterActivity;
 import io.flutter.plugins.GeneratedPluginRegistrant;
@@ -36,6 +37,8 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
 public class MainActivity extends FlutterActivity {
+
+  public static WeakReference<MainActivity> sRef;
 
   private static final String CHANNEL = "native.plugin";
   // 获取电池电量通道

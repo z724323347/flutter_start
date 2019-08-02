@@ -52,6 +52,12 @@ dependencies:
   rx_command: 2.0.5
   cloud_firestore: any
 
+  # flutter - native
+  # flutter_boost:
+  #       git:
+  #           url: 'https://github.com/alibaba/flutter_boost.git'
+  #           ref: '0.0.415'
+
 
   device_info: ^0.4.0+1
   jpush_flutter: ^0.0.11

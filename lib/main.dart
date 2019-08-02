@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_boost/flutter_boost.dart';
+// import 'package:flutter_pro/pages/boost/first_boost_page.dart';
+// import 'package:flutter_pro/pages/boost/second_boost_page.dart';
 import 'apppages/index_page.dart';
 
 import 'package:provide/provide.dart';
@@ -59,6 +62,11 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     // print('jpush ::::::::  ${jpush.checkNotificationStatus()}');
+    // FlutterBoost.singleton.registerPageBuilders({
+    //   'boost://firstPage': (pageName, params, _) => FirstBoostPage(),
+    //   'boost://secondPage': (pageName, params, _) => SecondBoostPage(),
+    // });
+    // FlutterBoost.handleOnStartPage();
   }
 
 
@@ -84,6 +92,8 @@ class _MyAppState extends State<MyApp> {
           platform: TargetPlatform.iOS,
           primarySwatch: Colors.lightBlue
         ),
+        // FlutterBoost 初始化
+        // builder: FlutterBoost.init(),
 
         // 测试入口   定义底部导航栏
          home: NavbottomBar(),

@@ -98,6 +98,9 @@ dependencies {
     implementation 'com.qianwen:okhttp-utils:3.8.0'
     implementation 'com.lzy.net:okgo:3.0.4'
     implementation 'com.azhon:appupdateX:2.1.0'
+    //友盟统计
+    implementation  'com.umeng.umsdk:analytics:7.5.4'
+    implementation  'com.umeng.umsdk:common:1.5.4'
 }
 repositories {
     mavenCentral()
