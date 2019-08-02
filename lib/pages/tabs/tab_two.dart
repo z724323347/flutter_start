@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_pro/util/janalytics_utils.dart';
 import 'dart:io';
 import 'package:http/http.dart' as client;
 import 'package:flutter/services.dart';
@@ -45,14 +46,14 @@ class _TabViewTwoPageState extends State<TabViewTwoPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            
             OutlineButton(
               child: Text('TestRxPage'),
               onPressed: () {
                 Navigator.of(context).push(CustomRoute(TestRxPage()));
+                JanalyticsUtils.onLoginEvent();
+                JanalyticsUtils.showToast(context, "统计登录事件");
               },
             ),
-
             OutlineButton(
               child: Text('GET as client cbk'),
               onPressed: () {
@@ -69,11 +70,13 @@ class _TabViewTwoPageState extends State<TabViewTwoPage> {
                   print("Future  : " + data);
                   Toast.showCenter('Future  :  $data');
                 });
+                JanalyticsUtils.onCountEvent();
               },
             ),
             RaisedButton(
               onPressed: () {
                 _getDevInfo();
+                JanalyticsUtils.onCalculateEvent();
               },
               child: Text('获取设备信息'),
             ),

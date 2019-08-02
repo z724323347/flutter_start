@@ -19,7 +19,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  
+  package_info: ^0.3.2+1
   flutter_webview_plugin: ^0.3.0+2
 
   http: ^0.11.3+17
@@ -44,6 +44,10 @@ dependencies:
   qr_mobile_vision: ^0.2.2
   # barcode_scan: ^0.0.3
 
+  # 极光 推送/统计
+  jpush_flutter: 0.0.13
+  janalytics: 0.0.3
+
   #rxDart
   # rxdart: ^0.22.1
   # rx_command: 4.3.1
@@ -60,7 +64,6 @@ dependencies:
 
 
   device_info: ^0.4.0+1
-  jpush_flutter: ^0.0.11
   # 微信 sdk
   # fluwx:
   #   git:
