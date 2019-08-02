@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_pro/pages/demo/chart/base_chart_demo.dart';
 import 'package:flutter_pro/util/janalytics_utils.dart';
 import 'dart:io';
 import 'package:http/http.dart' as client;
@@ -46,6 +47,12 @@ class _TabViewTwoPageState extends State<TabViewTwoPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            OutlineButton(
+              child: Text('go to FlChart'),
+              onPressed: () {
+                Navigator.of(context).push(CustomRoute(BaseChartPage()));
+              },
+            ),
             OutlineButton(
               child: Text('TestRxPage'),
               onPressed: () {

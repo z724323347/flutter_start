@@ -47,6 +47,9 @@ dependencies:
   # 极光 推送/统计
   jpush_flutter: 0.0.13
   janalytics: 0.0.3
+  
+  #图表
+  fl_chart: ^0.1.5
 
   #rxDart
   # rxdart: ^0.22.1
