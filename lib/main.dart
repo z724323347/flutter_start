@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ijkplayer/flutter_ijkplayer.dart';
 import 'package:janalytics/janalytics.dart';
 import 'package:package_info/package_info.dart';
 // import 'package:flutter_boost/flutter_boost.dart';
@@ -22,7 +23,7 @@ import './provide/current_page_provide.dart';
 
 import 'package:flutter_pro/pages/navbottombar.dart';
 
-void main() {
+void main() async{
   var counter = Counter();
   var currentPageProvide = CurrentPageProvide();
   var categoryChild = CategoryProvide();
@@ -32,6 +33,11 @@ void main() {
   var providers = Providers();
 
   // final router = Router();
+
+  // init IJKPlayer
+  IjkConfig.isLog = true;
+  // IjkConfig.level = LogLevel.verbose;
+  await IjkManager.initIJKPlayer();
 
   providers
     ..provide(Provider<Counter>.value(counter))
