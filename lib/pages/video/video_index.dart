@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ijkplayer/flutter_ijkplayer.dart';
+import 'package:flutter_pro/pages/custom_route.dart';
+import 'package:flutter_pro/pages/video/video.dart';
+import 'package:flutter_pro/util/toast.dart';
 
 class VideoIndex extends StatefulWidget {
   @override
@@ -38,6 +41,14 @@ class _VideoIndexState extends State<VideoIndex> {
               onPressed: () {},
               child: Text('showIJKFullScreen'),
             ),
+            OutlineButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  CustomRoute(VideoInfoPage()),
+                );
+              },
+              child: Text('VideoInfoPage'),
+            ),
           ],
         ),
       ),
@@ -46,7 +57,7 @@ class _VideoIndexState extends State<VideoIndex> {
 
   void showIJKDialog() async {
     await controller.setDataSource(DataSource.network(
-        'http://img.ksbbs.com/asset/Mon_1703/05cacb4e02f9d9e.mp4'));
+        'https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1280x720h.mp4'));
 
     videoInfo = await controller.getVideoInfo();
 
@@ -76,8 +87,34 @@ class _DialogIJKPlayerState extends State<DialogIJKPlayer> {
 
   double progressValue = 0.0;
 
+  VideoInfo videoInfo;
+
+  @override
+  void initState() {
+    super.initState();
+    getInfo();
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    videoInfo = null;
+    super.dispose();
+  }
+
+  getInfo() async {
+    videoInfo = await controller.getVideoInfo();
+    setState(() {
+      videoInfo == null
+          ? videoInfo.currentPosition = 0.0
+          : videoInfo.currentPosition = progressValue;
+    });
+    print('videoInfo  ------ ${videoInfo.toString()}');
+  }
+
   @override
   Widget build(BuildContext context) {
+    getInfo();
     return Stack(
       children: <Widget>[
         IjkPlayer(
@@ -101,16 +138,24 @@ class _DialogIJKPlayerState extends State<DialogIJKPlayer> {
                           margin: EdgeInsets.only(left: 20, right: 10),
                           child: InkWell(
                             onTap: () {
-                              ctrl.play();
+                              if (videoInfo != null) {
+                                ctrl.ijkStatus == IjkStatus.playing
+                                    ? ctrl.pause()
+                                    : ctrl.play();
+                              }
                             },
                             child: Icon(
-                              Icons.play_arrow,
+                              ctrl.ijkStatus == IjkStatus.playing
+                                  ? Icons.pause
+                                  : Icons.play_arrow,
                               color: Colors.white,
                             ),
                           ),
                         ),
                         new Text(
-                          '0.0',
+                          videoInfo == null
+                              ? '0.0'
+                              : videoInfo.currentPosition.toStringAsFixed(1),
                           style: TextStyle(color: Colors.white),
                         ),
                         Expanded(
@@ -121,14 +166,18 @@ class _DialogIJKPlayerState extends State<DialogIJKPlayer> {
                             min: 0.0,
                             activeColor: Colors.blue,
                             onChanged: (double val) {
+                              ToastUtil.show('${val}');
                               setState(() {
+                                controller.seekToProgress(val / 100);
                                 progressValue = val;
                               });
                             },
                           ),
                         ),
                         new Text(
-                          '0.0',
+                          videoInfo == null
+                              ? '0.0'
+                              : videoInfo.duration.toStringAsFixed(0),
                           style: TextStyle(color: Colors.white),
                         ),
                         Container(
