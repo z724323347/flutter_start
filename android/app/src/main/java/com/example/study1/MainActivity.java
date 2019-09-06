@@ -5,22 +5,27 @@ import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationManagerCompat;
 
-import com.azhon.appupdate.base.BaseHttpDownloadManager;
+import com.azhon.appupdate.config.UpdateConfiguration;
 import com.azhon.appupdate.listener.OnDownloadListener;
 import com.azhon.appupdate.manager.DownloadManager;
-import com.azhon.appupdate.service.DownloadService;
+import com.example.study1.util.Map2Obj;
 import com.example.study1.util.UpdateAppHttpUtil;
+import com.example.study1.util.VersionBean;
 import com.flutter.app.android.R;
-import com.google.android.material.button.MaterialButton;
 import com.vector.update_app.SilenceUpdateCallback;
 import com.vector.update_app.UpdateAppBean;
 import com.vector.update_app.UpdateAppManager;
@@ -28,15 +33,18 @@ import com.vector.update_app.utils.AppUpdateUtils;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.flutter.app.FlutterActivity;
+import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugins.GeneratedPluginRegistrant;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
-public class MainActivity extends FlutterActivity {
+public class MainActivity extends FlutterActivity implements OnDownloadListener {
 
   public static WeakReference<MainActivity> sRef;
 
@@ -44,11 +52,21 @@ public class MainActivity extends FlutterActivity {
   // 获取电池电量通道
   private static final String CHANNEL_BATTERY = "native.flutter.io/battery";
 
+  // 推送
   private static final String CHANNEL_JPUSH = "jpush.native/android";
 
+  // 检查更新（静默下载）
   private static final String CHANNEL_UP = "native.flutter.io/up";
 
+  // APP下载更新 flutter获取进度
+  private static final String EVENT_CHANNEL_NAME = "event.native.flutter.io/up";
+
   private DownloadManager manager;
+
+    private int max ; // 下载文件大小
+    private int progress; // 已下载大小
+  private EventChannel.EventSink event;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -171,6 +189,36 @@ public class MainActivity extends FlutterActivity {
           }
       });
 
+      // APP 下载进度
+      new EventChannel(getFlutterView(),EVENT_CHANNEL_NAME).setStreamHandler(new EventChannel.StreamHandler() {
+          @Override
+          public void onListen(Object o, EventChannel.EventSink eventSink) {
+              Log.d("EventChannel  :" ,"1--====" +o.toString());
+              //接收flutter 参数
+              VersionBean bean = new VersionBean();
+              event = eventSink;
+              manager = DownloadManager.getInstance(MainActivity.this);
+              try {
+                  bean = Map2Obj.mapToBean((Map<String, Object>) o , VersionBean.class);
+                  Log.d("EventChannel  :" ,"2--====" +bean.getUrl());
+              }catch (Exception e){
+                  e.printStackTrace();
+              }
+              manager.setApkName(bean.getName()==null ?"appVersion.apk":bean.getName())
+                      .setApkUrl(bean.getUrl())
+                      .setConfiguration(configuration)
+                      .setApkDescription("1.Description")
+                      .setDownloadPath(Environment.getExternalStorageDirectory() +"/AppVersion")
+                      .setSmallIcon(R.mipmap.ic_launcher)
+                      .download();
+
+          }
+
+          @Override
+          public void onCancel(Object o) {
+
+          }
+      });
 
     GeneratedPluginRegistrant.registerWith(this);
   }
@@ -273,4 +321,74 @@ public class MainActivity extends FlutterActivity {
                 .create()
                 .show();
     }
+
+    //app下载配置
+    UpdateConfiguration configuration = new UpdateConfiguration()
+            //输出错误日志
+            .setEnableLog(true)
+            //设置自定义的下载
+            //.setHttpManager()
+            //下载完成自动跳动安装页面
+            .setJumpInstallPage(true)
+            //设置对话框背景图片 (图片规范参照demo中的示例图)
+            //.setDialogImage(R.drawable.ic_dialog)
+            //设置按钮的颜色
+            //.setDialogButtonColor(Color.parseColor("#E743DA"))
+            //设置按钮的文字颜色
+            .setDialogButtonTextColor(Color.WHITE)
+            //支持断点下载
+            .setBreakpointDownload(true)
+            //设置是否显示通知栏进度
+            .setShowNotification(true)
+            //设置是否提示后台下载toast
+            .setShowBgdToast(false)
+            //设置强制更新
+            .setForcedUpgrade(false)
+            //设置对话框按钮的点击监听
+//          .setButtonClickListener(this)
+            //设置下载过程的监听
+            .setOnDownloadListener(this);
+
+    @Override
+    public void start() {
+
+    }
+
+    @Override
+    public void downloading(int max, int progress) {
+        Message msg = new Message();
+        msg.arg1 = max;
+        msg.arg2 = progress;
+        handler.sendMessage(msg);
+    }
+
+    @Override
+    public void done(File apk) {
+
+    }
+
+    @Override
+    public void cancel() {
+
+    }
+
+    @Override
+    public void error(Exception e) {
+
+    }
+
+    //  handler
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            max = msg.arg1;
+            progress = msg.arg2;
+            Map<String,Object> param = new HashMap<>();
+            param.put("max",max);
+            param.put("progress",progress);
+            // 返回flutter map
+            event.success(param);
+        }
+    };
 }

@@ -18,7 +18,7 @@ class LeaderPhone extends StatelessWidget {
 
   void _launchURL() async {
     String url = 'tel:'+ leaderPhone;
-    Toast.showCenter(url);
+    ToastUtil.showCenter(url);
     print(url);
 
     // //  拨打电话

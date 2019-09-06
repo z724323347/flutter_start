@@ -103,7 +103,7 @@ class CartBottomCell extends StatelessWidget {
       padding: EdgeInsets.only(left: 10.0,right: 5.0),
       child: InkWell(
         onTap: () {
-          Toast.show('结算');
+          ToastUtil.show('结算');
         },
         child: Container(
           padding: EdgeInsets.all(10.0),

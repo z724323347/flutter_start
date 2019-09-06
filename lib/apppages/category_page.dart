@@ -102,7 +102,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
         });
 
         // toast
-        Toast.showCenter(list[index].mallCategoryName);
+        ToastUtil.showCenter(list[index].mallCategoryName);
         //点击 topnav 改变状态
         var childList = list[index].bxMallSubDto;
         var categoryId =list[index].mallCategoryId;
@@ -159,7 +159,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
 
       CategoryGoodsListModel goodsList =  CategoryGoodsListModel.fromJson(data);
 
-      Toast.showCenter('------------------- ${goodsList.data[0].goodsName}');
+      ToastUtil.showCenter('------------------- ${goodsList.data[0].goodsName}');
 
       Provide.value<CategoryGoodsListProvide>(context).getGoodsList(goodsList.data);
 
@@ -220,7 +220,7 @@ class _TopCategoryNavState extends State<TopCategoryNav> {
       onTap: (){
         Provide.value<CategoryProvide>(context).changeChildIndex(index,item.mallSubId);
         _getSubGoodList(item.mallSubId);
-       Toast.showCenter('sub item: ${item.mallSubName}');
+       ToastUtil.showCenter('sub item: ${item.mallSubName}');
       },
       child: Container(
         padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),

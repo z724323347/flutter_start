@@ -19,7 +19,7 @@ class _HotGoodsState extends State<HotGoods> {
      super.initState();
       getHomePageBeloConten().then((val){
          print(val);
-         Toast.showCenter('热门商品加载中...');
+         ToastUtil.showCenter('热门商品加载中...');
       });
 
       getHotGoods();
@@ -75,7 +75,7 @@ class _HotGoodsState extends State<HotGoods> {
        List<Widget> listWidget = hotGoodsList.map((val){
           return InkWell(
             onTap:(){
-              Toast.showCenter('点击了热门商品');
+              ToastUtil.showCenter('点击了热门商品');
               Application.router.navigateTo(context, '/detail?id=${val['goodsId']}');
               },
             child: 

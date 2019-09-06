@@ -66,7 +66,7 @@ class _TabViewTwoPageState extends State<TabViewTwoPage> {
               onPressed: () {
                 getHttp((data) {
                   print('cbk : ' + data);
-                  Toast.showCenter('cbk : $data');
+                  ToastUtil.showCenter('cbk : $data');
                 });
               },
             ),
@@ -75,7 +75,7 @@ class _TabViewTwoPageState extends State<TabViewTwoPage> {
               onPressed: () {
                 getData().then((data) {
                   print("Future  : " + data);
-                  Toast.showCenter('Future  :  $data');
+                  ToastUtil.showCenter('Future  :  $data');
                 });
                 JanalyticsUtils.onCountEvent();
               },
@@ -145,10 +145,10 @@ class _TabViewTwoPageState extends State<TabViewTwoPage> {
     if (Platform.isIOS) {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
       // print('Running on ${iosInfo.utsname.machine}');  // e.g. "iPod7,1"
-      Toast.showCenter('Running on ${iosInfo.utsname.machine}');
+      ToastUtil.showCenter('Running on ${iosInfo.utsname.machine}');
     } else if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      Toast.showCenter('Running on ${androidInfo.model}');
+      ToastUtil.showCenter('Running on ${androidInfo.model}');
     }
   }
 }

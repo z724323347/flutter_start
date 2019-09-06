@@ -94,7 +94,7 @@ class CartItem extends StatelessWidget {
           Container(
             child: InkWell(
               onTap: () {
-                Toast.showCenter('点击删除 ${item.goodsName}');
+                ToastUtil.showCenter('点击删除 ${item.goodsName}');
                 Provide.value<CartGoodListProvide>(context).deteleGoods(item.goodsId);
               },
               child: Icon(

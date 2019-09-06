@@ -30,7 +30,7 @@ class DetailsBottomCell extends StatelessWidget {
             children: <Widget>[
               InkWell(
                 onTap: (){
-                  Toast.showCenter('provide -- 进入购物车页面');
+                  ToastUtil.showCenter('provide -- 进入购物车页面');
                   Provide.value<CurrentPageProvide>(context).changIndex(2);
                   Navigator.pop(context);
                 },
@@ -75,7 +75,7 @@ class DetailsBottomCell extends StatelessWidget {
 
           InkWell(
             onTap: () async {
-              Toast.showCenter('add cart');
+              ToastUtil.showCenter('add cart');
               await Provide.value<CartGoodListProvide>(context).save(goodsId, goodsName, count, price, image);
             },
             child: Container(
@@ -92,7 +92,7 @@ class DetailsBottomCell extends StatelessWidget {
 
           InkWell(
             onTap: () async {
-              Toast.showCenter(' soon');
+              ToastUtil.showCenter(' soon');
               await Provide.value<CartGoodListProvide>(context).remove();
             },
             child: Container(

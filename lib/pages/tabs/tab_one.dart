@@ -26,7 +26,7 @@ class _TabViewOnePageState extends State<TabViewOnePage> {
         color: Colors.green,
         child: InkWell(
           onTap: (){
-            Toast.showCenter(' 点击 =>  $index');
+            ToastUtil.showCenter(' 点击 =>  $index');
           },
           child: new Center(
             child: new CircleAvatar(

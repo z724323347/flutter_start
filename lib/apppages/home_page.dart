@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                 HotGoods.getHotGoods();
               },
               onRefresh: (){
-                Toast.showCenter('下拉刷新,请求最新数据');
+                ToastUtil.showCenter('下拉刷新,请求最新数据');
               },
 
               //上拉加载
@@ -180,7 +180,7 @@ class TopNavigator extends StatelessWidget {
   Widget _gridViewItem(BuildContext context, item) {
     return InkWell(
       onTap: () {
-        Toast.showCenter(item['mallCategoryName']);
+        ToastUtil.showCenter(item['mallCategoryName']);
       },
       child: Column(
         children: <Widget>[

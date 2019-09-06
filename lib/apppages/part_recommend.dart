@@ -29,7 +29,7 @@ class Recommend extends StatelessWidget {
   Widget _buildItem(context,index ) {
     return InkWell(
       onTap: (){
-        Toast.showCenter("/detail?id=${recommendList[index]['goodsId']}");
+        ToastUtil.showCenter("/detail?id=${recommendList[index]['goodsId']}");
         Application.router.navigateTo(context, '/detail?id=${recommendList[index]['goodsId']}');
       },
       child: Container(

@@ -70,7 +70,7 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
                     },
                 ),
                 loadMore: ()async {
-                  Toast.showCenter('上拉加载更多...');
+                  ToastUtil.showCenter('上拉加载更多...');
                   _getMoreList();
                 },
 
@@ -105,7 +105,7 @@ void _getMoreList() async {
       CategoryGoodsListModel goodsList =  CategoryGoodsListModel.fromJson(data);
 
       if (goodsList.data == null) {
-        Toast.showCenter('已经到底了 ~~~');
+        ToastUtil.showCenter('已经到底了 ~~~');
         Provide.value<CategoryProvide>(context).changeLoadingText('没有更多数据');
       } else {
         Provide.value<CategoryGoodsListProvide>(context).getMoreGoodsList(goodsList.data);
@@ -157,7 +157,7 @@ void _getMoreList() async {
     return InkWell(
       onTap: () {
         // Toast.showCenter('onTap :  ${newList[index]['goodsId']}');
-        Toast.showCenter('onTap : ${newList[index].goodsName}');
+        ToastUtil.showCenter('onTap : ${newList[index].goodsName}');
         Application.router.navigateTo(context, '/detail?id=${newList[index].goodsId}');
       },
       child: Container(
