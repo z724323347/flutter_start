@@ -57,7 +57,7 @@ class _VideoIndexState extends State<VideoIndex> {
 
   void showIJKDialog() async {
     await controller.setDataSource(DataSource.network(
-        'https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1280x720h.mp4'));
+        'http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8'));
 
     videoInfo = await controller.getVideoInfo();
 
@@ -152,10 +152,7 @@ class _DialogIJKPlayerState extends State<DialogIJKPlayer> {
                             ),
                           ),
                         ),
-                        new Text(
-                          videoInfo == null
-                              ? '0.0'
-                              : videoInfo.currentPosition.toStringAsFixed(1),
+                        new Text('0.0',
                           style: TextStyle(color: Colors.white),
                         ),
                         Expanded(
@@ -177,7 +174,7 @@ class _DialogIJKPlayerState extends State<DialogIJKPlayer> {
                         new Text(
                           videoInfo == null
                               ? '0.0'
-                              : videoInfo.duration.toStringAsFixed(0),
+                              : '100',
                           style: TextStyle(color: Colors.white),
                         ),
                         Container(
