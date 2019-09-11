@@ -54,6 +54,9 @@ dependencies:
   # 直播视频插件
   flutter_ijkplayer: ^0.3.3
 
+  #lottie
+  flutter_lottie: ^0.2.0
+
   #rxDart
   # rxdart: ^0.22.1
   # rx_command: 4.3.1
@@ -101,6 +104,9 @@ flutter:
     - images/appup/
     - images/play_needle.png
     - images/lyric.txt
+
+    - images/animations/
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pro/pages/demo/drag/drag_deom.dart';
+import 'package:flutter_pro/pages/demo/lottie/lottie_page.dart';
 import 'package:flutter_pro/pages/video/video_index.dart';
 import 'package:flutter_pro/widget/widget_check_box.dart';
 import 'custom_route.dart';
@@ -32,14 +33,18 @@ class _ThreeScreenState extends State<ThreeScreen>
                 child: Text('VideoButton'),
                 onPressed: () {
                   Navigator.of(context).push(CustomRoute(VideoIndex()));
-                  //  Navigator.of(context).push(CustomRoute(DraggablePage()));
                 },
               ),
               OutlineButton(
                 child: Text('OutlineButton'),
                 onPressed: () {
                   Navigator.of(context).push(CustomRoute(DragDeom()));
-                  //  Navigator.of(context).push(CustomRoute(DraggablePage()));
+                },
+              ),
+               OutlineButton(
+                child: Text('Airbnb Lottie'),
+                onPressed: () {
+                  Navigator.of(context).push(CustomRoute(AirbnbLottiePage()));
                 },
               ),
 
