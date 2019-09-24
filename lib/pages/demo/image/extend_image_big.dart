@@ -13,7 +13,8 @@ class BigImagePreviewPage extends StatefulWidget {
   _BigImagePreviewPageState createState() => _BigImagePreviewPageState();
 }
 
-class _BigImagePreviewPageState extends State<BigImagePreviewPage> {
+class _BigImagePreviewPageState extends State<BigImagePreviewPage>
+    with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   Animation<double> _animation;
   Function animationListener;
@@ -24,6 +25,12 @@ class _BigImagePreviewPageState extends State<BigImagePreviewPage> {
   bool _showSwiper = true;
   // var rebuildIndex = StreamController<int>.broadcast();
   var rebuildSwiper = StreamController<bool>.broadcast();
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+        duration: const Duration(milliseconds: 150), vsync: this);
+  }
 
   @override
   void dispose() {

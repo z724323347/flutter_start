@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pro/pages/demo/drag/drag_deom.dart';
+import 'package:flutter_pro/pages/demo/image/extend_image_zoom.dart';
 import 'package:flutter_pro/pages/demo/lottie/lottie_page.dart';
 import 'package:flutter_pro/pages/video/video_index.dart';
 import 'package:flutter_pro/widget/widget_check_box.dart';
@@ -33,6 +34,12 @@ class _ThreeScreenState extends State<ThreeScreen>
                 child: Text('VideoButton'),
                 onPressed: () {
                   Navigator.of(context).push(CustomRoute(VideoIndex()));
+                },
+              ),
+              OutlineButton(
+                child: Text('ZoomImageButton'),
+                onPressed: () {
+                  Navigator.of(context).push(CustomRoute(ZoomImageDemo()));
                 },
               ),
               OutlineButton(
