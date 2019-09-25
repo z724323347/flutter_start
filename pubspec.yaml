@@ -61,6 +61,7 @@ dependencies:
   # extended_image_library: ^0.1.5
   # 图片放缩
   extended_image: ^0.6.0
+  extended_text: ^0.6.6
 
   #rxDart
   # rxdart: ^0.22.1
@@ -107,6 +108,7 @@ flutter:
   #  - images/a_dot_ham.jpeg
   assets:
     - images/appup/
+    - images/assets/
     - images/play_needle.png
     - images/lyric.txt
 

@@ -18,6 +18,7 @@ class _ZoomImageDemoState extends State<ZoomImageDemo>
   List<double> doubleTapScales = <double>[1.0, 2.5];
   @override
   void initState() {
+    super.initState();
     _animationController = AnimationController(
         duration: const Duration(milliseconds: 150), vsync: this);
   }

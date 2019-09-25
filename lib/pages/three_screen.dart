@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pro/pages/demo/drag/drag_deom.dart';
 import 'package:flutter_pro/pages/demo/image/extend_image_zoom.dart';
+import 'package:flutter_pro/pages/demo/image/extend_text_view.dart';
 import 'package:flutter_pro/pages/demo/lottie/lottie_page.dart';
 import 'package:flutter_pro/pages/video/video_index.dart';
 import 'package:flutter_pro/widget/widget_check_box.dart';
@@ -36,11 +37,22 @@ class _ThreeScreenState extends State<ThreeScreen>
                   Navigator.of(context).push(CustomRoute(VideoIndex()));
                 },
               ),
-              OutlineButton(
-                child: Text('ZoomImageButton'),
-                onPressed: () {
-                  Navigator.of(context).push(CustomRoute(ZoomImageDemo()));
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  OutlineButton(
+                    child: Text('ZoomImageButton'),
+                    onPressed: () {
+                      Navigator.of(context).push(CustomRoute(ZoomImageDemo()));
+                    },
+                  ),
+                  OutlineButton(
+                    child: Text('SpecialTextButton'),
+                    onPressed: () {
+                      Navigator.of(context).push(CustomRoute(ExtendTextDemo()));
+                    },
+                  ),
+                ],
               ),
               OutlineButton(
                 child: Text('OutlineButton'),
@@ -48,7 +60,7 @@ class _ThreeScreenState extends State<ThreeScreen>
                   Navigator.of(context).push(CustomRoute(DragDeom()));
                 },
               ),
-               OutlineButton(
+              OutlineButton(
                 child: Text('Airbnb Lottie'),
                 onPressed: () {
                   Navigator.of(context).push(CustomRoute(AirbnbLottiePage()));
