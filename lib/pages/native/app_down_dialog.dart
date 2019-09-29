@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_download/flutter_download.dart';
 import 'package:flutter_pro/util/toast.dart';
 
 class AppUpDataPage extends StatefulWidget {
@@ -49,6 +50,13 @@ class _AppUpDataPageState extends State<AppUpDataPage> {
 
     progress = 0.0;
     isDownApp = false;
+  }
+
+  Future<void> _getPulignTest() async {
+    Map map = {
+      'url':"https://qd.myapp.com/myapp/qqteam/QQ_JS/qqlite_4.0.0.1025_537062065.apk",
+    };
+    FlutterDownload.flutterDownload(map);
   }
 
   @override
@@ -197,6 +205,7 @@ class _AppUpDataPageState extends State<AppUpDataPage> {
                       setState(() {
                         isDownApp = true;
                         _getEventUpdata();
+                        // _getPulignTest();
                       });
                     },
                     child: Text(

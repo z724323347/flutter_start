@@ -3,6 +3,8 @@ import 'package:flutter_pro/pages/demo/drag/drag_deom.dart';
 import 'package:flutter_pro/pages/demo/image/extend_image_zoom.dart';
 import 'package:flutter_pro/pages/demo/image/extend_text_view.dart';
 import 'package:flutter_pro/pages/demo/lottie/lottie_page.dart';
+import 'package:flutter_pro/pages/im/rongcloud_index.dart';
+import 'package:flutter_pro/pages/map/map_page.dart';
 import 'package:flutter_pro/pages/video/video_index.dart';
 import 'package:flutter_pro/widget/widget_check_box.dart';
 import 'custom_route.dart';
@@ -31,14 +33,26 @@ class _ThreeScreenState extends State<ThreeScreen>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              OutlineButton(
-                child: Text('VideoButton'),
-                onPressed: () {
-                  Navigator.of(context).push(CustomRoute(VideoIndex()));
-                },
-              ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  OutlineButton(
+                    child: Text('VideoButton'),
+                    onPressed: () {
+                      Navigator.of(context).push(CustomRoute(VideoIndex()));
+                    },
+                  ),
+                  OutlineButton(
+                    child: Text('Map'),
+                    onPressed: () {
+                      Navigator.of(context).push(CustomRoute(MapIndexPage()));
+                    },
+                  ),
+                ],
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   OutlineButton(
                     child: Text('ZoomImageButton'),
@@ -54,12 +68,24 @@ class _ThreeScreenState extends State<ThreeScreen>
                   ),
                 ],
               ),
-              OutlineButton(
-                child: Text('OutlineButton'),
-                onPressed: () {
-                  Navigator.of(context).push(CustomRoute(DragDeom()));
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  OutlineButton(
+                    child: Text('OutlineButton'),
+                    onPressed: () {
+                      Navigator.of(context).push(CustomRoute(DragDeom()));
+                    },
+                  ),
+                  OutlineButton(
+                    child: Text('IM'),
+                    onPressed: () {
+                      Navigator.of(context).push(CustomRoute(ImIndexPage()));
+                    },
+                  ),
+                ],
               ),
+
               OutlineButton(
                 child: Text('Airbnb Lottie'),
                 onPressed: () {
