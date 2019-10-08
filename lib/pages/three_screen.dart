@@ -72,6 +72,24 @@ class _ThreeScreenState extends State<ThreeScreen>
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   OutlineButton(
+                    child: Text('Airbnb Lottie'),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .push(CustomRoute(AirbnbLottiePage()));
+                    },
+                  ),
+                  OutlineButton(
+                    child: Text('Map'),
+                    onPressed: () {
+                      Navigator.of(context).push(CustomRoute(MapIndexPage()));
+                    },
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  OutlineButton(
                     child: Text('OutlineButton'),
                     onPressed: () {
                       Navigator.of(context).push(CustomRoute(DragDeom()));
@@ -84,13 +102,6 @@ class _ThreeScreenState extends State<ThreeScreen>
                     },
                   ),
                 ],
-              ),
-
-              OutlineButton(
-                child: Text('Airbnb Lottie'),
-                onPressed: () {
-                  Navigator.of(context).push(CustomRoute(AirbnbLottiePage()));
-                },
               ),
 
               IconButton(

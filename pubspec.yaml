@@ -69,7 +69,7 @@ dependencies:
   rongcloud_im_plugin: ^0.9.7+2
 
   #高德地图插件
-  # amap_base: 0.3.5
+  amap_base: ^0.3.5
   # amap_base_map: ^0.4.4+1
   # amap_base_location: ^0.4.0+1
 

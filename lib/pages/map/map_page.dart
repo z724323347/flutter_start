@@ -1,5 +1,5 @@
 
-// import 'package:amap_base/amap_base.dart';
+import 'package:amap_base/amap_base.dart';
 import 'package:flutter/material.dart';
 
 class MapIndexPage extends StatefulWidget {
@@ -9,7 +9,7 @@ class MapIndexPage extends StatefulWidget {
 }
 
 class _MapIndexPageState extends State<MapIndexPage> {
-  // AMapController _controller;
+  AMapController _controller;
   // MyLocationStyle _myLocationStyle = MyLocationStyle();
 
   @override
@@ -19,7 +19,7 @@ class _MapIndexPageState extends State<MapIndexPage> {
   }
 
   void initMap() async {
-    // await AMap.init('27d67839721288be2ddd87b4fd868822');
+    await AMap.init('27d67839721288be2ddd87b4fd868822');
   }
 
   @override
@@ -30,26 +30,26 @@ class _MapIndexPageState extends State<MapIndexPage> {
         centerTitle: true,
       ),
       body: Container(
-        // child: Column(
-        //   children: <Widget>[
-        //     Flexible(
-        //       child: AMapView(
-        //         onAMapViewCreated: (controller) {
-        //           _controller = controller;
-        //         },
-        //         amapOptions: AMapOptions(
-        //         compassEnabled: false,
-        //         zoomControlsEnabled: true,
-        //         logoPosition: LOGO_POSITION_BOTTOM_CENTER,
-        //         camera: CameraPosition(
-        //           target: LatLng(40.851827, 111.801637),
-        //           zoom: 15,
-        //         ),
-        //       ),
-        //       ),
-        //     )
-        //   ],
-        // ),
+        child: Column(
+          children: <Widget>[
+            Flexible(
+              child: AMapView(
+                onAMapViewCreated: (controller) {
+                  _controller = controller;
+                },
+                amapOptions: AMapOptions(
+                compassEnabled: false,
+                zoomControlsEnabled: true,
+                logoPosition: LOGO_POSITION_BOTTOM_CENTER,
+                camera: CameraPosition(
+                  target: LatLng(29.851827, 110.801637),
+                  zoom: 15,
+                ),
+              ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
