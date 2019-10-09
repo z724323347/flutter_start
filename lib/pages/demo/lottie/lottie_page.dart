@@ -10,7 +10,7 @@ class AirbnbLottiePage extends StatefulWidget {
   _AirbnbLottiePageState createState() => _AirbnbLottiePageState();
 }
 
-class _AirbnbLottiePageState extends State<AirbnbLottiePage> {
+class _AirbnbLottiePageState extends State<AirbnbLottiePage> with WidgetsBindingObserver{
   LottieController controller;
   StreamController<double> newProgressStream = new StreamController<double>();
   double newProgress =0.0;
@@ -130,9 +130,22 @@ class _AirbnbLottiePageState extends State<AirbnbLottiePage> {
     });
   }
 
+  @override
   void dispose() {
     super.dispose();
     JanalyticsUtils.onPageEnd('AirbnbLottiePage');
     newProgressStream.close();
   }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+     print("page fragemnt didChangeAppLifecycleState ${state.toString()}");
+    if(state == AppLifecycleState.resumed){
+      JanalyticsUtils.onPageStart(widget.runtimeType.toString());
+    }else if(state == AppLifecycleState.paused){
+      JanalyticsUtils.onPageEnd(widget.runtimeType.toString());
+    }
+  }
+
 }

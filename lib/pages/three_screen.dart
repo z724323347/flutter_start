@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pro/pages/demo/dev/camera_page.dart';
+import 'package:flutter_pro/pages/demo/dev/camera_test.dart';
 import 'package:flutter_pro/pages/demo/drag/drag_deom.dart';
 import 'package:flutter_pro/pages/demo/image/extend_image_zoom.dart';
 import 'package:flutter_pro/pages/demo/image/extend_text_view.dart';
@@ -101,6 +103,24 @@ class _ThreeScreenState extends State<ThreeScreen>
                     child: Text('IM'),
                     onPressed: () {
                       Navigator.of(context).push(CustomRoute(ImIndexPage()));
+                    },
+                  ),
+                ],
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  OutlineButton(
+                    child: Text('Camera'),
+                    onPressed: () {
+                      Navigator.of(context).push(CustomRoute(CameraPage()));
+                    },
+                  ),
+                  OutlineButton(
+                    child: Text('CameraTestPage'),
+                    onPressed: () {
+                      Navigator.of(context).push(CustomRoute(CameraTestPage()));
                     },
                   ),
                 ],

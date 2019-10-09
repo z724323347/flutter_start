@@ -59,7 +59,7 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
   final JPush jpush = new JPush();
   String debugLable = 'Unknown';
   final Janalytics janalytics = new Janalytics();
@@ -159,5 +159,17 @@ class _MyAppState extends State<MyApp> {
 //        home: IndexPage(),
       ),
     );
+  }
+
+   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    String now =
+        ((DateTime.now().millisecondsSinceEpoch) / 1000).toStringAsFixed(0);
+    if (state == AppLifecycleState.paused) {
+      print('切换到了后台');
+    }
+    if (state == AppLifecycleState.resumed) {
+      print('切换到了前台');
+    }
   }
 }
