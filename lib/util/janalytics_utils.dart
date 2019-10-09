@@ -25,8 +25,7 @@ class JanalyticsUtils{
     //添加自己的Extra 信息
     //增加一个Map<String,String>
     Map<String,String> extraMap = new Map();
-    extraMap['key_login1'] = "value_extra1";
-    extraMap["key_login2"] = "value_extra2";
+    extraMap['key_login'] = "登录事件";
     janalytics.onLoginEvent(
         "testLoginMethod", // 登录方式
         true,// 是否登录成功
@@ -40,8 +39,7 @@ class JanalyticsUtils{
     //添加自己的Extra 信息
     //增加一个Map<String,String>
     Map<String,String> extraMap = new Map();
-    extraMap['key_register_event_extra1'] = "value_extra1";
-    extraMap["key_register_event_extra2"] = "value_extra2";
+    extraMap['key_register'] = "注册事件";
     janalytics.onRegisterEvent(
         "testRegisterMethod", // 注册方式
         true,// 是否注册成功
@@ -56,8 +54,7 @@ class JanalyticsUtils{
     //添加自己的Extra 信息
     //增加一个Map<String,String>
     Map<String,String> extraMap = new Map();
-    extraMap['key_purchase_event_extra1'] = "value_extra1";
-    extraMap["key_purchase_event_extra2"] = "value_extra2";
+    extraMap['key_purchase_event'] = "购买事件";
     janalytics.onPurchaseEvent(
         "test_purchaseGoodsID", //商品ID
         "篮球", //商品名称
@@ -70,18 +67,17 @@ class JanalyticsUtils{
   }
 
   /// 浏览事件
-  static void onBrowseEvent(){
+  static void onBrowseEvent(int browseDuration){
     Janalytics janalytics = Janalytics();
     //添加自己的Extra 信息
     //增加一个Map<String,String>
     Map<String,String> extraMap = new Map();
-    extraMap['key_browse_event_extra1'] = "value_extra1";
-    extraMap["key_browse_event_extra2"] = "value_extra2";
+    extraMap['key_browse_event'] = "浏览事件";
 
     janalytics.onBrowseEvent("test_browseID",//设置浏览内容id
-        "深圳热点新闻",//设置浏览的内容的名称
-        "news", //设置浏览的内容类型
-        30,//设置浏览的内容时长,单位秒)
+        "热点新闻",//设置浏览的内容的名称
+        "sport", //设置浏览的内容类型
+        browseDuration,//设置浏览的内容时长,单位秒)
         extMap: extraMap
     );
   }
@@ -92,8 +88,7 @@ class JanalyticsUtils{
     //添加自己的Extra 信息
     //增加一个Map<String,String>
     Map<String,String> extraMap = new Map();
-    extraMap['key_calculate_event_extra1'] = "value_extra1";
-    extraMap["key_calculate_event_extra2"] = "value_extra2";
+    extraMap['key_calculate_event'] = "计算事件";
     janalytics.onCalculateEvent(
         "test_calculateID$eventIdIndex",  // 事件ID
         1,   // 事件对应的值
@@ -108,13 +103,23 @@ class JanalyticsUtils{
     //添加自己的Extra 信息
     //增加一个Map<String,String>
     Map<String,String> extraMap = new Map();
-    extraMap['envet_a'] = "envet_a--哈哈";
-    extraMap["key_count_event1"] = "value_extra2";
+    extraMap['key_count_event'] = "计数事件";
     janalytics.onCountEvent(
-        "Event_countID$eventIdIndex",  // 事件ID
+        "Event_countID_Map",  // 事件ID
         extMap: extraMap
     );
     eventIdIndex++;
+  }
+
+  /// 页面统计 进入页面  onPageStart - onPageEnd 成对使用
+  static void onPageStart(String pageName){
+     Janalytics janalytics  = Janalytics();
+     janalytics.onPageStart(pageName);
+  }
+  /// 页面统计 离开页面  onPageStart - onPageEnd 成对使用
+  static void onPageEnd(String pageName){
+     Janalytics janalytics  = Janalytics();
+     janalytics.onPageEnd(pageName);
   }
 
 

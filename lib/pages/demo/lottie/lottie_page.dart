@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_lottie/flutter_lottie.dart';
 import 'package:flutter_pro/pages/demo/lottie/page_dragger.dart';
+import 'package:flutter_pro/util/janalytics_utils.dart';
 
 class AirbnbLottiePage extends StatefulWidget {
   @override
@@ -13,6 +14,12 @@ class _AirbnbLottiePageState extends State<AirbnbLottiePage> {
   LottieController controller;
   StreamController<double> newProgressStream = new StreamController<double>();
   double newProgress =0.0;
+
+  @override
+  void initState() {
+    JanalyticsUtils.onPageStart('AirbnbLottiePage');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,6 +132,7 @@ class _AirbnbLottiePageState extends State<AirbnbLottiePage> {
 
   void dispose() {
     super.dispose();
+    JanalyticsUtils.onPageEnd('AirbnbLottiePage');
     newProgressStream.close();
   }
 }

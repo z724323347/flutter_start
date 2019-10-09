@@ -6,6 +6,7 @@ import 'package:flutter_pro/pages/demo/lottie/lottie_page.dart';
 import 'package:flutter_pro/pages/im/rongcloud_index.dart';
 import 'package:flutter_pro/pages/map/map_page.dart';
 import 'package:flutter_pro/pages/video/video_index.dart';
+import 'package:flutter_pro/util/janalytics_utils.dart';
 import 'package:flutter_pro/widget/widget_check_box.dart';
 import 'custom_route.dart';
 import 'package:flutter_pro/widget/widget_formfield.dart';
@@ -45,6 +46,7 @@ class _ThreeScreenState extends State<ThreeScreen>
                   OutlineButton(
                     child: Text('Map'),
                     onPressed: () {
+                      JanalyticsUtils.onCountEvent();
                       Navigator.of(context).push(CustomRoute(MapIndexPage()));
                     },
                   ),
@@ -106,13 +108,16 @@ class _ThreeScreenState extends State<ThreeScreen>
 
               IconButton(
                 icon: Icon(Icons.thumb_up),
-                onPressed: () {},
+                onPressed: () {
+                  JanalyticsUtils.onRegisterEvent();
+                },
               ),
 
               RaisedButton(
                 color: Colors.red,
                 child: Text('容器--倾斜变换'),
                 onPressed: () {
+                  JanalyticsUtils.onLoginEvent();
                   Navigator.of(context).push(CustomRoute(TestContainer()));
                 },
               ),
@@ -126,6 +131,7 @@ class _ThreeScreenState extends State<ThreeScreen>
                     borderRadius: BorderRadius.circular(10.0)),
                 child: Text('FlatButton with BorderRadius'),
                 onPressed: () {
+                  JanalyticsUtils.onPurchaseEvent();
                   Navigator.of(context).push(CustomRoute(FormTestRoute()));
                 },
               ),

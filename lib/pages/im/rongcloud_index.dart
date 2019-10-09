@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_pro/util/janalytics_utils.dart';
 import 'package:flutter_pro/util/toast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rongcloud_im_plugin/rongcloud_im_plugin.dart';
@@ -10,11 +13,26 @@ class ImIndexPage extends StatefulWidget {
 }
 
 class _ImIndexPageState extends State<ImIndexPage> {
+  int time = 0;
+  Timer timer;
   @override
   void initState() {
+    timer = Timer.periodic( Duration(seconds: 1), (_){
+      setState(() {
+        time ++;
+      });
+    });
     RongcloudImPlugin.init('appkey');
     conn();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    print('time ++    $time');
+    JanalyticsUtils.onBrowseEvent(time);
+    timer.cancel();
+    super.dispose();
   }
 
   void conn() async {
