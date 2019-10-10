@@ -42,6 +42,8 @@ subprojects {
                 details.useVersion "1.0.0-rc01"
             }else if (details.requested.group == "androidx.recyclerview"){
                 details.useVersion "1.0.0-rc01"
+            }else if (details.requested.group == "com.google.android.material"){
+                details.useVersion "1.0.0-rc01"
             }
         }
     }

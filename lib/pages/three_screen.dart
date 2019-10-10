@@ -5,11 +5,14 @@ import 'package:flutter_pro/pages/demo/drag/drag_deom.dart';
 import 'package:flutter_pro/pages/demo/image/extend_image_zoom.dart';
 import 'package:flutter_pro/pages/demo/image/extend_text_view.dart';
 import 'package:flutter_pro/pages/demo/lottie/lottie_page.dart';
+import 'package:flutter_pro/pages/im/multi_imagePicker.dart';
 import 'package:flutter_pro/pages/im/rongcloud_index.dart';
 import 'package:flutter_pro/pages/map/map_page.dart';
 import 'package:flutter_pro/pages/video/video_index.dart';
 import 'package:flutter_pro/util/janalytics_utils.dart';
+import 'package:flutter_pro/util/toast.dart';
 import 'package:flutter_pro/widget/widget_check_box.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'custom_route.dart';
 import 'package:flutter_pro/widget/widget_formfield.dart';
 import 'container.dart';
@@ -21,6 +24,8 @@ class ThreeScreen extends StatefulWidget {
 
 class _ThreeScreenState extends State<ThreeScreen>
     with AutomaticKeepAliveClientMixin {
+  String launchUrl = 'alipays://';
+  // String launchUrl = 'weixin://';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +53,7 @@ class _ThreeScreenState extends State<ThreeScreen>
                   OutlineButton(
                     child: Text('Map'),
                     onPressed: () {
-                      JanalyticsUtils.onCountEvent();
+                      JanalyticsUtils.onCountEvent('AMap_Page', 'key', 'value');
                       Navigator.of(context).push(CustomRoute(MapIndexPage()));
                     },
                   ),
@@ -83,9 +88,10 @@ class _ThreeScreenState extends State<ThreeScreen>
                     },
                   ),
                   OutlineButton(
-                    child: Text('Map'),
+                    child: Text('multi_image_picker'),
                     onPressed: () {
-                      Navigator.of(context).push(CustomRoute(MapIndexPage()));
+                      Navigator.of(context)
+                          .push(CustomRoute(MultiImagePickerPage()));
                     },
                   ),
                 ],
@@ -128,8 +134,13 @@ class _ThreeScreenState extends State<ThreeScreen>
 
               IconButton(
                 icon: Icon(Icons.thumb_up),
-                onPressed: () {
-                  JanalyticsUtils.onRegisterEvent();
+                onPressed: () async {
+                  JanalyticsUtils.onRegisterEvent('phone', true, 'eventKey', 'eventValue');
+                  if (await canLaunch(launchUrl)) {
+                    await launch(launchUrl);
+                  } else {
+                    ToastUtil.showCenter('Could not launch $launchUrl');
+                  }
                 },
               ),
 
@@ -137,7 +148,8 @@ class _ThreeScreenState extends State<ThreeScreen>
                 color: Colors.red,
                 child: Text('容器--倾斜变换'),
                 onPressed: () {
-                  JanalyticsUtils.onLoginEvent();
+                  JanalyticsUtils.onLoginEvent(
+                      'phone', true, 'eventKey', 'eventValue');
                   Navigator.of(context).push(CustomRoute(TestContainer()));
                 },
               ),
@@ -198,7 +210,7 @@ class WrapAndFlow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 8.0, // 主轴(水平)方向间距
+      spacing: 8.0, // 主轴(水���)方向间距
       runSpacing: 4.0, // 纵轴（垂直）方向间距
       alignment: WrapAlignment.center, //沿主轴方向居中
       children: <Widget>[

@@ -57,8 +57,6 @@ class _TabViewTwoPageState extends State<TabViewTwoPage> {
               child: Text('TestRxPage'),
               onPressed: () {
                 Navigator.of(context).push(CustomRoute(TestRxPage()));
-                JanalyticsUtils.onLoginEvent();
-                JanalyticsUtils.showToast(context, "统计登录事件");
               },
             ),
             OutlineButton(
@@ -77,13 +75,11 @@ class _TabViewTwoPageState extends State<TabViewTwoPage> {
                   print("Future  : " + data);
                   ToastUtil.showCenter('Future  :  $data');
                 });
-                JanalyticsUtils.onCountEvent();
               },
             ),
             RaisedButton(
               onPressed: () {
                 _getDevInfo();
-                JanalyticsUtils.onCalculateEvent();
               },
               child: Text('获取设备信息'),
             ),
