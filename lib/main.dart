@@ -23,7 +23,7 @@ import './provide/current_page_provide.dart';
 
 import 'package:flutter_pro/pages/navbottombar.dart';
 
-void main() async{
+void main() async {
   var counter = Counter();
   var currentPageProvide = CurrentPageProvide();
   var categoryChild = CategoryProvide();
@@ -59,7 +59,7 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   final JPush jpush = new JPush();
   String debugLable = 'Unknown';
   final Janalytics janalytics = new Janalytics();
@@ -98,6 +98,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
       PackageInfo info = await PackageInfo.fromPlatform();
       String appInfo =
           '应用名: ${info.appName}\n包名:${info.packageName}\n版本:${info.version}';
+      print('Jpush  ID--------- ${debugLable}');
       print('Janalytics  --------- ${appInfo}');
     } on Exception catch (e) {
       print('init error:$e');
@@ -109,6 +110,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
           print("flutter onReceiveNotification: $message");
           setState(() {
             debugLable = "flutter onReceiveNotification: $message";
+            jpush.sendLocalNotification(LocalNotification(
+                content: message['alert'],
+                fireTime: DateTime.now(),
+                id: message['extras']['cn.jpush.android.NOTIFICATION_ID'],
+                title: message['title']));
           });
         },
         onOpenNotification: (Map<String, dynamic> message) async {
@@ -161,7 +167,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
     );
   }
 
-   @override
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     String now =
         ((DateTime.now().millisecondsSinceEpoch) / 1000).toStringAsFixed(0);

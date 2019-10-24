@@ -58,6 +58,9 @@ android {
                 JPUSH_PKGNAME : applicationId,
                 JPUSH_APPKEY : "a3600525db613641003d139a", // NOTE: JPush 上注册的包名对应的 Appkey.
                 JPUSH_CHANNEL : "developer-default",
+                HUAWEI_APPID : "101216655",
+                XIAOMI_APPKEY : "MI-5481820869670", // 小米平台注册的appkey
+                XIAOMI_APPID : "MI-2882303761518208670", // 小米平台注册的appid
         ]
     }
 
@@ -71,6 +74,10 @@ android {
     }
     buildTypes {
         release {
+            minifyEnabled true // 混淆
+            zipAlignEnabled true // Zipalign优化
+            shrinkResources true  // 移除无用的resource文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'  // 加载默认混淆配置文件
             signingConfig signingConfigs.release
         }
     }
@@ -82,6 +89,11 @@ android {
 //            signingConfig signingConfigs.debug
 //        }
 //    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
 
 flutter {
@@ -94,8 +106,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
     implementation 'com.google.android.material:material:1.0.0-beta01'
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+//    implementation 'com.jakewharton:butterknife:8.8.1'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     // implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 //    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -105,8 +117,31 @@ dependencies {
     implementation 'com.lzy.net:okgo:3.0.4'
     implementation 'com.azhon:appupdateX:2.1.0'
     //友盟统计
-    implementation  'com.umeng.umsdk:analytics:7.5.4'
-    implementation  'com.umeng.umsdk:common:1.5.4'
+//    implementation  'com.umeng.umsdk:analytics:7.5.4'
+//    implementation  'com.umeng.umsdk:common:1.5.4'
+
+    implementation 'cn.jiguang.sdk:jpush:3.3.6'  // 此处以JPush 3.3.6 版本为例。
+    implementation 'cn.jiguang.sdk:jcore:2.1.6'  // 此处以JCore 2.1.6 版本为例。
+
+//    implementation 'cn.jiguang.sdk.plugin:huawei:3.3.2'
+//    implementation 'com.huawei.android.hms:push:2.6.3.301'
+//    implementation files('libs/hmssdk-2.6.3.301.jar')
+    implementation (name:'HMSSdk-agent',ext:'aar')
+    implementation files('libs/jpush-android-plugin-huawei-v3.3.2.jar')
+//    implementation 'com.huawei.android.hms:push:2.6.3.301'
+//    implementation 'com.huawei.android.hms:base:2.6.3.301'
+//    implementation 'cn.jiguang.sdk.plugin:huawei:3.3.6'
+    implementation 'com.huawei.android.hms:base:2.6.3.301'
+    implementation 'com.huawei.android.hms:iap:2.6.3.301'
+    implementation 'com.huawei.android.hms:sns:2.6.3.301'
+    implementation 'com.huawei.android.hms:hwid:2.6.3.301'
+    implementation 'com.huawei.android.hms:push:2.6.3.301'
+    implementation 'com.huawei.android.hms:opendevice:2.6.3.301'
+    implementation 'com.huawei.android.hms:game:2.6.3.301'
+    //mi
+    implementation 'cn.jiguang.sdk.plugin:xiaomi:3.3.6'//版本号和对应的JPush版本号相同
+    
+
 }
 repositories {
     mavenCentral()

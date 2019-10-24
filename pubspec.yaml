@@ -46,6 +46,7 @@ dependencies:
   qr_mobile_vision: ^0.2.2
   # barcode_scan: ^0.0.3
   multi_image_picker: ^4.5.8
+  flutter_animation_set: ^0.0.3
 
   # 极光 推送/统计
   jpush_flutter: 0.0.13
@@ -69,7 +70,7 @@ dependencies:
   permission_handler: ^3.2.2
 
   # 融云 IM Flutter plugin
-  rongcloud_im_plugin: ^0.9.7+2
+  # rongcloud_im_plugin: ^0.9.7+2
 
   #高德地图插件
   amap_base: ^0.3.5

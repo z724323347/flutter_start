@@ -1,0 +1,29 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+<!-- <shortcut
+    android:enabled="true"
+    android:icon="@mipmap/ic_launcher"
+    android:shortcutDisabledMessage="Flutter1"
+    android:shortcutId="publish"
+    android:shortcutLongLabel="Flutter1-2"
+    android:shortcutShortLabel="Flutter1-3">
+    <intent
+        android:action="android.intent.action.VIEW"
+        android:targetClass="com.example.study1.MainActivity"
+        android:targetPackage="com.flutter.app.android" />
+    <categories android:name="android.shortcut.conversation" />
+</shortcut>
+
+<shortcut
+    android:enabled="true"
+    android:icon="@mipmap/ic_launcher"
+    android:shortcutDisabledMessage="Flutter2"
+    android:shortcutId="write"
+    android:shortcutLongLabel="Flutter2-2"
+    android:shortcutShortLabel="Flutter2-3">
+    <intent
+        android:action="android.intent.action.VIEW"
+        android:targetClass="com.example.study1.MainActivity"
+        android:targetPackage="com.flutter.app.android" />
+    <categories android:name="android.shortcut.conversation" />
+</shortcut> -->
+</shortcuts>

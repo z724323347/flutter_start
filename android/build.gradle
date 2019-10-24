@@ -3,7 +3,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven { url 'https://dl.bintray.com/umsdk/release' }
+        // maven { url 'https://dl.bintray.com/umsdk/release' }
     }
 
     dependencies {
@@ -17,7 +17,8 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url 'https://dl.bintray.com/umsdk/release' }
+        // maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven {url 'http://developer.huawei.com/repo/'}
     }
 }
 
@@ -55,3 +56,4 @@ subprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+

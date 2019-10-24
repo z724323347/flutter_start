@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pro/util/janalytics_utils.dart';
 import 'package:flutter_pro/util/toast.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:rongcloud_im_plugin/rongcloud_im_plugin.dart';
+// import 'package:rongcloud_im_plugin/rongcloud_im_plugin.dart';
 
 class ImIndexPage extends StatefulWidget {
   ImIndexPage({Key key}) : super(key: key);
@@ -22,7 +22,7 @@ class _ImIndexPageState extends State<ImIndexPage> {
         time ++;
       });
     });
-    RongcloudImPlugin.init('appkey');
+    // RongcloudImPlugin.init('appkey');
     conn();
     super.initState();
   }
@@ -36,9 +36,9 @@ class _ImIndexPageState extends State<ImIndexPage> {
   }
 
   void conn() async {
-    int rc = await RongcloudImPlugin.connect('RongIMToken');
-    print('connect result');
-    print(rc);
+    // int rc = await RongcloudImPlugin.connect('RongIMToken');
+    // print('connect result');
+    // print(rc);
   }
 
   @override
