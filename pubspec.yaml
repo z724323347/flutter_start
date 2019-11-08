@@ -103,7 +103,9 @@ dependencies:
   flutter_download:
     git:
       url: git@gitlab.urui.biz:mop-gaming/flutter_app_update.git
-      branch: master   
+      branch: master  
+
+  flotter_view: ^0.0.1
 
 
 dev_dependencies:

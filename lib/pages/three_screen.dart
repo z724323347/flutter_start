@@ -5,6 +5,7 @@ import 'package:flutter_pro/pages/demo/drag/drag_deom.dart';
 import 'package:flutter_pro/pages/demo/image/extend_image_zoom.dart';
 import 'package:flutter_pro/pages/demo/image/extend_text_view.dart';
 import 'package:flutter_pro/pages/demo/lottie/lottie_page.dart';
+import 'package:flutter_pro/pages/demo/lottie/lottie_plugin.dart';
 import 'package:flutter_pro/pages/im/multi_imagePicker.dart';
 import 'package:flutter_pro/pages/im/rongcloud_index.dart';
 import 'package:flutter_pro/pages/map/map_page.dart';
@@ -111,6 +112,13 @@ class _ThreeScreenState extends State<ThreeScreen>
                       Navigator.of(context).push(CustomRoute(ImIndexPage()));
                     },
                   ),
+                  OutlineButton(
+                    child: Text('FlotterView'),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .push(CustomRoute(FlotterViewPlugin()));
+                    },
+                  ),
                 ],
               ),
 
@@ -135,7 +143,8 @@ class _ThreeScreenState extends State<ThreeScreen>
               IconButton(
                 icon: Icon(Icons.thumb_up),
                 onPressed: () async {
-                  JanalyticsUtils.onRegisterEvent('phone', true, 'eventKey', 'eventValue');
+                  JanalyticsUtils.onRegisterEvent(
+                      'phone', true, 'eventKey', 'eventValue');
                   if (await canLaunch(launchUrl)) {
                     await launch(launchUrl);
                   } else {
