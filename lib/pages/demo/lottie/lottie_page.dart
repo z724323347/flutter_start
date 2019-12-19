@@ -10,14 +10,13 @@ class AirbnbLottiePage extends StatefulWidget {
   _AirbnbLottiePageState createState() => _AirbnbLottiePageState();
 }
 
-class _AirbnbLottiePageState extends State<AirbnbLottiePage> with WidgetsBindingObserver{
+class _AirbnbLottiePageState extends State<AirbnbLottiePage> {
   LottieController controller;
   StreamController<double> newProgressStream = new StreamController<double>();
   double newProgress =0.0;
 
   @override
   void initState() {
-    JanalyticsUtils.onPageStart('AirbnbLottiePage');
     super.initState();
   }
 
@@ -36,7 +35,7 @@ class _AirbnbLottiePageState extends State<AirbnbLottiePage> with WidgetsBinding
                 width: 150,
                 height: 150,
                 // child: LottieView.fromURL(
-                //   url: "https://github.com/airbnb/lottie-android/blob/master/LottieSample/src/main/assets/AndroidWave.json",
+                //   url: "https://assets1.lottiefiles.com/datafiles/WFKIUGAVvLl1azi/data.json",
                 //   autoPlay: true,
                 //   loop: true,
                 //   reverse: true,
@@ -45,8 +44,11 @@ class _AirbnbLottiePageState extends State<AirbnbLottiePage> with WidgetsBinding
               ),
               FlatButton(
                 child: Text("Play"),
-                onPressed: () {
+                onPressed: () async {
                   controller.play();
+                  controller.setAnimationSpeed(0.4);
+                  double l = await controller.getAnimationSpeed();
+                  print('${l}');
                 },
               ),
               FlatButton(
@@ -73,7 +75,7 @@ class _AirbnbLottiePageState extends State<AirbnbLottiePage> with WidgetsBinding
                   width: 250,
                   height: 250,
                   child: LottieView.fromFile(
-                    filePath: "images/animations/newAnimation.json",
+                    filePath: "images/animations/done.json",
                     autoPlay: true,
                     loop: true,
                     reverse: true,
@@ -133,19 +135,7 @@ class _AirbnbLottiePageState extends State<AirbnbLottiePage> with WidgetsBinding
   @override
   void dispose() {
     super.dispose();
-    JanalyticsUtils.onPageEnd('AirbnbLottiePage');
     newProgressStream.close();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-     print("page fragemnt didChangeAppLifecycleState ${state.toString()}");
-    if(state == AppLifecycleState.resumed){
-      JanalyticsUtils.onPageStart(widget.runtimeType.toString());
-    }else if(state == AppLifecycleState.paused){
-      JanalyticsUtils.onPageEnd(widget.runtimeType.toString());
-    }
   }
 
 }

@@ -1,7 +1,7 @@
 package com.example.study1.push;
-import cn.jpush.android.service.JCommonService;
+// import cn.jpush.android.service.JCommonService;
 
-public class PushService extends JCommonService {
+// public class PushService extends JCommonService {
 
-}
+// }
 

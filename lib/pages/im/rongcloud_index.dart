@@ -30,7 +30,7 @@ class _ImIndexPageState extends State<ImIndexPage> {
   @override
   void dispose() {
     print('time ++    $time');
-    JanalyticsUtils.onBrowseEvent('news', '电竞视频直播', '电竞', time, '电竞', '电竞直播');
+    // JanalyticsUtils.onBrowseEvent('news', '电竞视频直播', '电竞', time, '电竞', '电竞直播');
     timer.cancel();
     super.dispose();
   }

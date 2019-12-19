@@ -30,11 +30,16 @@ class _PageDraggerState extends State<PageDragger> {
     
   }
 
+  onTap([fn]){
+    this.widget.stream.sink.add(fn);
+  }
+
   Widget build(BuildContext context) {
     return new GestureDetector(
       onHorizontalDragStart: onDragStart,
       onHorizontalDragUpdate: onDragUpdate,
       onHorizontalDragEnd: onDragEnd,
+      // onTap: onTap(),
       child: widget.child,
     );
   }

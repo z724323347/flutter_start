@@ -50,7 +50,7 @@ dependencies:
 
   # 极光 推送/统计
   jpush_flutter: 0.0.13
-  janalytics: 0.0.3
+  # janalytics: 0.0.3
   
   #图表
   fl_chart: ^0.1.5
@@ -73,7 +73,7 @@ dependencies:
   # rongcloud_im_plugin: ^0.9.7+2
 
   #高德地图插件
-  amap_base: ^0.3.5
+  # amap_base: ^0.3.5
   # amap_base_map: ^0.4.4+1
   # amap_base_location: ^0.4.0+1
 
@@ -106,6 +106,9 @@ dependencies:
       branch: master  
 
   flotter_view: ^0.0.1
+    
+  # sensors --
+  sensors: ^0.4.0
 
 
 dev_dependencies:
@@ -133,6 +136,7 @@ flutter:
     - images/assets/
     - images/play_needle.png
     - images/lyric.txt
+    - images/video/
 
     - images/animations/
     

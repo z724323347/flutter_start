@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_pro/pages/demo/rx_command_model.dart';
 import 'package:flutter_pro/pages/demo/rxdart_demo_test.dart';
-import 'package:janalytics/janalytics.dart';
 import 'package:rxdart/rxdart.dart';
 
 class TestRxPage extends StatefulWidget {
@@ -15,20 +14,6 @@ class _TestRxPageState extends State<TestRxPage> {
   String temp;
   static RxModel rxModel = new RxModel();
   String valueAsString = '0';
-  Janalytics janalytics = new Janalytics();
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    janalytics.onPageStart("RxDart");
-  }
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    janalytics.onPageEnd("RxDart");
-  }
 
   @override
   Widget build(BuildContext context) {

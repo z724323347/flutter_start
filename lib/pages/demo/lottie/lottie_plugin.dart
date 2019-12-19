@@ -14,6 +14,9 @@ class _FlotterViewPluginState extends State<FlotterViewPlugin> {
   FlotterAnimationController controller3 = FlotterAnimationController(
       'images/animations/test.json', 'done3',
       loopMode: FlotterLoopMode.loop);
+  FlotterAnimationController controller4 = FlotterAnimationController(
+      'images/animations/test.json', 'done4',
+      loopMode: FlotterLoopMode.loop);
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +87,35 @@ class _FlotterViewPluginState extends State<FlotterViewPlugin> {
                   }),
             ],
           ),
+          Container(
+            width: 300,
+            height: 300,
+            color: Colors.black12,
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                    // top: 0,
+                    // bottom: 0,
+                    child: GestureDetector(
+                      onTap: () {
+                        print('------------');
+                        controller4.play();
+                      },
+                      child: Container(
+                        width: 200.0,
+                        height: 200.0,
+                        color: Colors.grey,
+                      ),
+                    )),
+                Container(
+                  width: 100.0,
+                  height: 100.0,
+                  color: Colors.black26,
+                  child: FlotterView(controller4),
+                ),
+              ],
+            ),
+          )
         ]),
       ),
     );

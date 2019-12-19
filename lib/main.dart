@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ijkplayer/flutter_ijkplayer.dart';
-import 'package:janalytics/janalytics.dart';
+import 'package:flutter_pro/widget/toast/toast.dart';
+// import 'package:janalytics/janalytics.dart';
 import 'package:package_info/package_info.dart';
 // import 'package:flutter_boost/flutter_boost.dart';
 // import 'package:flutter_pro/pages/boost/first_boost_page.dart';
@@ -62,8 +63,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   final JPush jpush = new JPush();
   String debugLable = 'Unknown';
-  final Janalytics janalytics = new Janalytics();
-
+  // final Janalytics janalytics = new Janalytics();
   @override
   void initState() {
     super.initState();
@@ -89,10 +89,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       production: false,
       debug: true,
     );
-    janalytics.setup(
-        appKey: "a3600525db613641003d139a",
-        channel: "devloper-default"); // 初始化sdk
-    janalytics.setDebugMode(true); // 打开调试模式
+    // janalytics.setup(
+    //     appKey: "a3600525db613641003d139a",
+    //     channel: "devloper-default"); // 初始化sdk
+    // janalytics.setDebugMode(true); // 打开调试模式
 
     try {
       PackageInfo info = await PackageInfo.fromPlatform();
@@ -143,6 +143,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     final router = Router();
     Routes.configRoutes(router);
     Application.router = router;
+
+    Toast.ctx = context;
+    print('context ----$context');
 
     return Container(
       child: MaterialApp(

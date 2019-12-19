@@ -54,7 +54,6 @@ class _ThreeScreenState extends State<ThreeScreen>
                   OutlineButton(
                     child: Text('Map'),
                     onPressed: () {
-                      JanalyticsUtils.onCountEvent('AMap_Page', 'key', 'value');
                       Navigator.of(context).push(CustomRoute(MapIndexPage()));
                     },
                   ),
@@ -143,8 +142,6 @@ class _ThreeScreenState extends State<ThreeScreen>
               IconButton(
                 icon: Icon(Icons.thumb_up),
                 onPressed: () async {
-                  JanalyticsUtils.onRegisterEvent(
-                      'phone', true, 'eventKey', 'eventValue');
                   if (await canLaunch(launchUrl)) {
                     await launch(launchUrl);
                   } else {
@@ -157,8 +154,6 @@ class _ThreeScreenState extends State<ThreeScreen>
                 color: Colors.red,
                 child: Text('容器--倾斜变换'),
                 onPressed: () {
-                  JanalyticsUtils.onLoginEvent(
-                      'phone', true, 'eventKey', 'eventValue');
                   Navigator.of(context).push(CustomRoute(TestContainer()));
                 },
               ),
@@ -172,7 +167,6 @@ class _ThreeScreenState extends State<ThreeScreen>
                     borderRadius: BorderRadius.circular(10.0)),
                 child: Text('FlatButton with BorderRadius'),
                 onPressed: () {
-                  JanalyticsUtils.onPurchaseEvent();
                   Navigator.of(context).push(CustomRoute(FormTestRoute()));
                 },
               ),

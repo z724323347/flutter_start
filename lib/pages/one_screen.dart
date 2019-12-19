@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_pro/pages/demo/sensors/sensors_page.dart';
 import 'package:flutter_pro/pages/native/setting_page.dart';
+import 'package:flutter_pro/widget/toast/toast.dart';
 import 'dart:async';
 
 // import 'package:camera/camera.dart';
@@ -63,12 +65,22 @@ class _OneScreenState extends State<OneScreen> {
             ),
 
             RaisedButton(
+              child: Text('SensorsPage'),
+              onPressed: () {
+                Navigator.of(context).push(
+                  CustomRoute(SensorsPage()),
+                );
+              },
+            ),
+
+            RaisedButton(
               child: Text('启动native页面'),
               onPressed: () {
                 nativePlugin.invokeMethod('interaction');
-                print("启动native页面");
+               Toast.show(context, '启动native页面',500);
               },
             ),
+            
 
             RaisedButton(
               onPressed: () {

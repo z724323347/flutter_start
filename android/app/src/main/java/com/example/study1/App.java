@@ -9,7 +9,6 @@ import androidx.annotation.CallSuper;
 import java.util.Map;
 
 import io.flutter.view.FlutterMain;
-import com.huawei.android.hms.agent.HMSAgent;
 
 public class App extends Application {
     private Activity mCurrentActivity = null;
@@ -21,7 +20,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         FlutterMain.startInitialization(this);
-        HMSAgent.init(this);
 
         // JPushInterface.setDebugMode(true); // 设置开启日志,发布时请关闭日志
         // JPushInterface.init(this); // 初始化 JPush
