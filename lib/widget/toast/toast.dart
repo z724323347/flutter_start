@@ -1,14 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pro/global/global.dart';
+
+
+class CommonFun{
+  static BuildContext context = GlobalNavigator.navigatorKey.currentState.overlay.context;
+  static OverlayState overlayState = GlobalNavigator.navigatorKey.currentState.overlay;
+
+  void toast(String message, {int time ,ToastPosition position}){
+    Toast.show(overlayState, message, time ,position);
+  }
+}
+
+//Toast 显示位置控制
+enum ToastPosition {
+  top,
+  center,
+  bottom,
+}
 
 class Toast {
   static ToastView preToast;
-  static dynamic ctx;
-  static show(BuildContext context, String msg, [int time]) {
+  // 显示位置
+  static ToastPosition _p;
+  static show(OverlayState context, String msg,
+      [int time, ToastPosition position]) {
     preToast?.dismiss();
     preToast = null;
+    _p = position != null ? position : ToastPosition.bottom;
+    OverlayState overlayState = context;
 
-     print('ctx ----$ctx');
-    var overlayState = Overlay.of(context);
     var controllerShowAnim = new AnimationController(
       vsync: overlayState,
       duration: Duration(milliseconds: 250),
@@ -35,7 +55,7 @@ class Toast {
         opacityAnim1: opacityAnim1,
         opacityAnim2: opacityAnim2,
         offsetAnim: offsetAnim,
-        child: buildToastLayout(msg),
+        child: buildToastLayout(msg, _p),
       );
     });
     var toastView = ToastView();
@@ -48,7 +68,7 @@ class Toast {
     toastView._show(time);
   }
 
-  static LayoutBuilder buildToastLayout(String msg) {
+  static LayoutBuilder buildToastLayout(String msg, ToastPosition p) {
     return LayoutBuilder(builder: (context, constraints) {
       return IgnorePointer(
         ignoring: true,
@@ -58,7 +78,8 @@ class Toast {
             child: Container(
               child: Container(
                 child: Text(
-                  "${msg}",
+                  "${msg.toString()}",
+                  textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white),
                 ),
                 decoration: BoxDecoration(
@@ -70,16 +91,30 @@ class Toast {
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               ),
               margin: EdgeInsets.only(
+                top: p == ToastPosition.top
+                    ? constraints.biggest.height * 0.15
+                    : 0,
                 bottom: constraints.biggest.height * 0.15,
                 left: constraints.biggest.width * 0.2,
                 right: constraints.biggest.width * 0.2,
               ),
             ),
           ),
-          alignment: Alignment.bottomCenter,
+          alignment: setAlignment(p),
         ),
       );
     });
+  }
+
+  /// 设置toast位置
+  static AlignmentGeometry setAlignment(ToastPosition postion) {
+    if (postion == ToastPosition.top) {
+      return Alignment.topCenter;
+    } else if (postion == ToastPosition.center) {
+      return Alignment.center;
+    } else {
+      return Alignment.bottomCenter;
+    }
   }
 }
 
@@ -95,7 +130,7 @@ class ToastView {
     overlayState.insert(overlayEntry);
     controllerShowAnim.forward();
     controllerShowOffset.forward();
-    await Future.delayed(Duration(milliseconds: time == null ? 2500 : time));
+    await Future.delayed(Duration(milliseconds: time == null ? 2000 : time));
     this.dismiss();
   }
 

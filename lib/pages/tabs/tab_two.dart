@@ -5,7 +5,7 @@ import 'package:flutter_pro/util/janalytics_utils.dart';
 import 'dart:io';
 import 'package:http/http.dart' as client;
 import 'package:flutter/services.dart';
-import 'package:device_info/device_info.dart';
+// import 'package:device_info/device_info.dart';
 
 import 'package:flutter_pro/util/toast.dart';
 import 'package:flutter_pro/pages/custom_route.dart';
@@ -137,14 +137,14 @@ class _TabViewTwoPageState extends State<TabViewTwoPage> {
 
   //查看多平台设备信息参数
   _getDevInfo() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    if (Platform.isIOS) {
-      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-      // print('Running on ${iosInfo.utsname.machine}');  // e.g. "iPod7,1"
-      ToastUtil.showCenter('Running on ${iosInfo.utsname.machine}');
-    } else if (Platform.isAndroid) {
-      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      ToastUtil.showCenter('Running on ${androidInfo.model}');
-    }
+    // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    // if (Platform.isIOS) {
+    //   IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+    //   // print('Running on ${iosInfo.utsname.machine}');  // e.g. "iPod7,1"
+    //   ToastUtil.showCenter('Running on ${iosInfo.utsname.machine}');
+    // } else if (Platform.isAndroid) {
+    //   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    //   ToastUtil.showCenter('Running on ${androidInfo.model}');
+    // }
   }
 }

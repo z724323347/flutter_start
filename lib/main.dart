@@ -144,7 +144,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     Routes.configRoutes(router);
     Application.router = router;
 
-    Toast.ctx = context;
     print('context ----$context');
 
     return Container(

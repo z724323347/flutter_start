@@ -30,8 +30,8 @@ class _MultiImagePickerPageState extends State<MultiImagePickerPage> {
       );
 
       for (var r in resultList) {
-        var t = await r.filePath;
-        print(t);
+        // var t = await r.filePath;
+        // print(t);
       }
     } on Exception catch (e) {
       error = e.toString();

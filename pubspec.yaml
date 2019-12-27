@@ -43,9 +43,9 @@ dependencies:
   image_picker: ^0.5.2
   shared_preferences: ^0.5.1
   qr_flutter: ^2.0.0
-  qr_mobile_vision: ^0.2.2
+  # qr_mobile_vision: ^0.2.2
   # barcode_scan: ^0.0.3
-  multi_image_picker: ^4.5.8
+  multi_image_picker: ^4.6.0 
   flutter_animation_set: ^0.0.3
 
   # 极光 推送/统计
@@ -64,7 +64,7 @@ dependencies:
   # path_provider: ^1.1.2
   # extended_image_library: ^0.1.5
   # 图片放缩
-  extended_image: ^0.6.0
+  extended_image: ^0.6.8
   extended_text: ^0.6.6
   
   permission_handler: ^3.2.2
@@ -92,12 +92,13 @@ dependencies:
   #           ref: '0.0.415'
 
 
-  device_info: ^0.4.0+1
+  # device_info: ^0.4.0+1
   # 微信 sdk
   # fluwx:
   #   git:
   #     url: https://github.com/OpenFlutter/fluwx
   fluwx: ^0.6.1
+  native_device_orientation: ^0.3.0
 
   # eg
   flutter_download:

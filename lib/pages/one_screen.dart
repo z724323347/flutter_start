@@ -77,10 +77,9 @@ class _OneScreenState extends State<OneScreen> {
               child: Text('启动native页面'),
               onPressed: () {
                 nativePlugin.invokeMethod('interaction');
-               Toast.show(context, '启动native页面',500);
+                CommonFun().toast('启动native页面', time: 500);
               },
             ),
-            
 
             RaisedButton(
               onPressed: () {
