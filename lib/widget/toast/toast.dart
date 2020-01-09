@@ -6,8 +6,9 @@ class CommonFun{
   static BuildContext context = GlobalNavigator.navigatorKey.currentState.overlay.context;
   static OverlayState overlayState = GlobalNavigator.navigatorKey.currentState.overlay;
 
-  void toast(String message, {int time ,ToastPosition position}){
-    Toast.show(overlayState, message, time ,position);
+  static toast(String message, {int time ,ToastPosition position}){
+    // Toast.show(overlayState, message, time ,position);
+    Toast.show( message,time: time,position: position);
   }
 }
 
@@ -22,12 +23,12 @@ class Toast {
   static ToastView preToast;
   // 显示位置
   static ToastPosition _p;
-  static show(OverlayState context, String msg,
-      [int time, ToastPosition position]) {
+  static show( String msg,
+      {int time, ToastPosition position}) {
     preToast?.dismiss();
     preToast = null;
     _p = position != null ? position : ToastPosition.bottom;
-    OverlayState overlayState = context;
+    OverlayState overlayState =  GlobalNavigator.navigatorKey.currentState.overlay;
 
     var controllerShowAnim = new AnimationController(
       vsync: overlayState,

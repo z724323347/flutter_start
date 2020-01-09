@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pro/pages/demo/sensors/sensors_page.dart';
 import 'package:flutter_pro/pages/native/setting_page.dart';
+import 'package:flutter_pro/util/locale/i18n_utils.dart';
 import 'package:flutter_pro/widget/toast/toast.dart';
 import 'dart:async';
 
@@ -56,7 +57,7 @@ class _OneScreenState extends State<OneScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             RaisedButton(
-              child: Text('SettingPage'),
+              child: Text('SettingPage :I18nUtils- ' + I18nUtils.of().about),
               onPressed: () {
                 Navigator.of(context).push(
                   CustomRoute(SettingPage()),
@@ -77,7 +78,7 @@ class _OneScreenState extends State<OneScreen> {
               child: Text('启动native页面'),
               onPressed: () {
                 nativePlugin.invokeMethod('interaction');
-                CommonFun().toast('启动native页面', time: 500);
+                CommonFun.toast('启动native页面', time: 1500);
               },
             ),
 

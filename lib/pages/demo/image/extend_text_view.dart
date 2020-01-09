@@ -48,7 +48,7 @@ class _ExtendTextDemoState extends State<ExtendTextDemo> {
                 maxLines: 10,
                 overflow: TextOverflow.ellipsis,
                 selectionEnabled: true,
-                textSelectionControls: _myExtendedMaterialTextSelectionControls,
+                // textSelectionControls: _myExtendedMaterialTextSelectionControls,
               ),
             )
           ],

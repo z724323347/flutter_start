@@ -15,6 +15,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter  
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -45,7 +47,7 @@ dependencies:
   qr_flutter: ^2.0.0
   # qr_mobile_vision: ^0.2.2
   # barcode_scan: ^0.0.3
-  multi_image_picker: ^4.6.0 
+  multi_image_picker: ^4.5.0
   flutter_animation_set: ^0.0.3
 
   # 极光 推送/统计
@@ -62,10 +64,10 @@ dependencies:
   flutter_lottie: ^0.2.0
 
   # path_provider: ^1.1.2
-  # extended_image_library: ^0.1.5
+  extended_image_library: ^0.1.6
   # 图片放缩
-  extended_image: ^0.6.8
-  extended_text: ^0.6.6
+  extended_image: ^0.6.0
+  extended_text: ^0.6.0
   
   permission_handler: ^3.2.2
 
@@ -110,6 +112,9 @@ dependencies:
     
   # sensors --
   sensors: ^0.4.0
+
+  # 本地json对象存储
+  localstorage: ^2.0.0
 
 
 dev_dependencies:

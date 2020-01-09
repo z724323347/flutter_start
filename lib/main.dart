@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ijkplayer/flutter_ijkplayer.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_pro/generated/i18n.dart';
+import 'package:flutter_pro/global/global.dart';
+import 'package:flutter_pro/util/locale/storage_manager.dart';
 import 'package:flutter_pro/widget/toast/toast.dart';
 // import 'package:janalytics/janalytics.dart';
 import 'package:package_info/package_info.dart';
@@ -38,7 +42,7 @@ void main() async {
   // init IJKPlayer
   IjkConfig.isLog = true;
   // IjkConfig.level = LogLevel.verbose;
-  await IjkManager.initIJKPlayer();
+  // await IjkManager.initIJKPlayer();
 
   providers
     ..provide(Provider<Counter>.value(counter))
@@ -50,6 +54,9 @@ void main() async {
 
   //provide 多个状态的管理， .. 函数添加其它状态 exp.
   // ..provide(Provider<Other>.value(other));
+
+  //初始化获取本地缓存
+  await StorageManager.init();
 
   // runApp(MyApp());
   runApp(ProviderNode(child: MyApp(), providers: providers));
@@ -165,6 +172,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         home: NavbottomBar(),
         //项目入口
 //        home: IndexPage(),
+        localizationsDelegates: const[
+          S.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        navigatorKey: GlobalNavigator.navigatorKey,
       ),
     );
   }
