@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pro/pages/demo/sensors/sensors_page.dart';
+import 'package:flutter_pro/pages/demo/test/index.dart';
 import 'package:flutter_pro/pages/native/setting_page.dart';
 import 'package:flutter_pro/util/locale/i18n_utils.dart';
 import 'package:flutter_pro/widget/toast/toast.dart';
@@ -138,8 +139,9 @@ class _OneScreenState extends State<OneScreen> {
             RaisedButton(
               child: Text('打开test!'),
               onPressed: () {
-                // open();
-//              _testJPush();
+               Navigator.of(context).push(
+                  CustomRoute(TestImageExpened()),
+                );
               },
             ),
             Text('$tempStatus'),

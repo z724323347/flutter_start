@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pro/util/sp_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-
-import '../util/sp_utils.dart';
 import '../model/cart_goodsinfo_model.dart';
 
 class CartGoodListProvide with ChangeNotifier{
@@ -12,9 +12,7 @@ class CartGoodListProvide with ChangeNotifier{
   bool isAllCheck = true; //是否全选
 
   save(goodsId,goodsName,count,price,images) async{
-    //初始化SharedPreferences
-    var prefs = await SpUtil().init;
-    cartString = prefs.getString('cartInfo'); 
+    cartString = SpUtil.getString('cartInfo'); 
     //判断cartString是否为空，为空说明是第一次添加，或者被key被清除了
     var temp=cartString==null?[]:json.decode(cartString.toString());
     //把获得值转变成List
@@ -57,12 +55,12 @@ class CartGoodListProvide with ChangeNotifier{
     cartString = json.encode(tempList).toString();
     print('添加 set >>>>>> ： ${cartString}');
     print('添加 model >>>>>> ： ${cartInfoList}');
-    prefs.setString('cartInfo', cartString);
+    SpUtil.putString('cartInfo', cartString);
     notifyListeners();
   }
 
   remove() async {
-    var prefs = await SpUtil().init;
+    var prefs = await SharedPreferences.getInstance();
     prefs.remove('cartInfo');
     cartInfoList = [];
     print('清空完成----------------\n : ${prefs.getString('cartInfo')}');
@@ -72,8 +70,7 @@ class CartGoodListProvide with ChangeNotifier{
 
   //得到购物车中的商品
   getCartGoodsInfo() async {
-    var prefs = await SpUtil().init;
-    cartString = prefs.getString('cartInfo');
+    cartString = SpUtil.getString('cartInfo');
     cartInfoList = [];
     if (cartString == null) {
       cartInfoList = [];
@@ -99,8 +96,7 @@ class CartGoodListProvide with ChangeNotifier{
 
   //删除单个商品
   deteleGoods(String goodsId) async{
-    var prefs = await SpUtil().init;
-    cartString = prefs.getString('cartInfo');
+    cartString = SpUtil.getString('cartInfo');
     List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
     //索引变量
     int tempIndex = 0;
@@ -114,14 +110,13 @@ class CartGoodListProvide with ChangeNotifier{
     tempList.removeAt(deteleIndex);
     cartString = json.encode(tempList).toString();
     //持久化
-    prefs.setString('cartInfo', cartString);
+    SpUtil.putString('cartInfo', cartString);
     //刷新list
     await getCartGoodsInfo();
   }
 
   changeCheckBoxState(CartGoodsInfoModel cartItem) async {
-    var prefs = await SpUtil().init;
-    cartString = prefs.getString('cartInfo');
+    cartString = SpUtil.getString('cartInfo');
     List<Map> tempList = (json.decode(cartString.toString()) as List).cast(); 
     int tempIndex = 0;
     int changeIndex = 0;
@@ -133,15 +128,14 @@ class CartGoodListProvide with ChangeNotifier{
     });
     tempList[changeIndex] = cartItem.toJson();
     cartString = json.encode(tempList).toString();
-    prefs.setString('cartInfo', cartString);
+    SpUtil.putString('cartInfo', cartString);
     //刷新list
     await getCartGoodsInfo();
   }
 
   //全选操作
   changAllCheckState(bool isCheck) async {
-    var prefs = await SpUtil().init;
-    cartString = prefs.getString('cartInfo');
+    cartString = SpUtil.getString('cartInfo');
     List<Map> tempList = (json.decode(cartString.toString()) as List).cast(); 
     List<Map> newList = [];
     //forin 
@@ -151,15 +145,14 @@ class CartGoodListProvide with ChangeNotifier{
       newList.add(newItem);
     }
     cartString = json.encode(newList).toString();
-    prefs.setString("cartInfo", cartString);
+    SpUtil.putString("cartInfo", cartString);
     //刷新list
     await getCartGoodsInfo();
   }
 
   //数量 +/-
   goodCountAddorReduce(var cartItem , String action) async{
-    var prefs = await SpUtil().init;
-    cartString = prefs.getString('cartInfo');
+    cartString = SpUtil.getString('cartInfo');
     List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
     int tempIndex = 0;
     int changeIndex = 0;
@@ -177,7 +170,7 @@ class CartGoodListProvide with ChangeNotifier{
     }
     tempList[changeIndex] = cartItem.toJson();
     cartString = json.encode(tempList).toString();
-    prefs.setString("cartInfo", cartString);
+    SpUtil.putString("cartInfo", cartString);
     //刷新list
     await getCartGoodsInfo();
   }

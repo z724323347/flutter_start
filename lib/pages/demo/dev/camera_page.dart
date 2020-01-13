@@ -42,11 +42,16 @@ class _CameraPageState extends State<CameraPage> {
   }
 
   Future initCameras() async {
+    List<CameraDescription> temp ;
     try {
-      cameras = await availableCameras();
+       temp = await availableCameras();
     } on CameraException catch (e) {
       logError(e.code, e.description);
     }
+
+    setState(() {
+      cameras = temp;
+    });
   }
 
   @override
@@ -222,8 +227,10 @@ class _CameraPageState extends State<CameraPage> {
   Widget _cameraTogglesRowWidget() {
     final List<Widget> toggles = <Widget>[];
 
+    print('cameras.isEmpty  ${cameras.isEmpty}');
+
     if (cameras.isEmpty) {
-      return const Text('No camera found');
+      return  Text('No camera found');
     } else {
       for (CameraDescription cameraDescription in cameras) {
         toggles.add(

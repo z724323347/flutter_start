@@ -143,6 +143,7 @@ flutter:
     - images/play_needle.png
     - images/lyric.txt
     - images/video/
+    - images/img/
 
     - images/animations/
     

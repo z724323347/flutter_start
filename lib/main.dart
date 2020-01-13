@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_pro/generated/i18n.dart';
 import 'package:flutter_pro/global/global.dart';
 import 'package:flutter_pro/util/locale/storage_manager.dart';
+import 'package:flutter_pro/util/sp_utils.dart';
 import 'package:flutter_pro/widget/toast/toast.dart';
 // import 'package:janalytics/janalytics.dart';
 import 'package:package_info/package_info.dart';
@@ -29,6 +30,8 @@ import './provide/current_page_provide.dart';
 import 'package:flutter_pro/pages/navbottombar.dart';
 
 void main() async {
+
+  SpUtil.getInstance();
   var counter = Counter();
   var currentPageProvide = CurrentPageProvide();
   var categoryChild = CategoryProvide();
@@ -150,8 +153,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     final router = Router();
     Routes.configRoutes(router);
     Application.router = router;
-
-    print('context ----$context');
 
     return Container(
       child: MaterialApp(

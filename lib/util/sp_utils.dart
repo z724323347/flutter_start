@@ -1,64 +1,169 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:synchronized/synchronized.dart';
 
+/// shared_preferences插件  工具类
+/// mian.dart 中初始化 SpUtil.getInstance()
 class SpUtil {
-  static final SpUtil _instance = new SpUtil.internal();
-  factory SpUtil() => _instance;
-  static SharedPreferences _sp;
-  SpUtil.internal();
-
-  Future<SharedPreferences> get init async {
-    if (_sp !=null) {
-      return _sp;
+  static SpUtil _singleton;
+  static SharedPreferences _prefs;
+  static Lock _lock = Lock();
+  static Future<SpUtil> getInstance() async {
+    if (_singleton == null) {
+      await _lock.synchronized(() async {
+        if (_singleton == null) {
+          // 保持本地实例直到完全初始化。
+          var singleton = SpUtil._();
+          await singleton._init();
+          _singleton = singleton;
+        }
+      });
     }
-
-    _sp =await initSP();
-
-    return _sp;
+    return _singleton;
   }
 
-  initSP() async {
-    var prefs= await SharedPreferences.getInstance();
-    return prefs;
+  SpUtil._();
+
+  Future _init() async {
+    _prefs = await SharedPreferences.getInstance();
   }
 
-
-  Future<List> getStringList(String key) async {
-    var prefs = await init;
-    return prefs.getStringList(key);
+  /// put object.
+  static Future<bool> putObject(String key, Object value) {
+    if (_prefs == null) return null;
+    return _prefs.setString(key, value == null ? "" : json.encode(value));
   }
 
-  Future<String> getString(String key) async {
-    var prefs = await init;
-    return prefs.getString(key);
-  } 
-
-  Future<int> getInt(String key) async {
-    var prefs = await init;
-    return prefs.getInt(key);
-  }
-  Future<double> getDouble(String key) async {
-    var prefs = await init;
-    return prefs.getDouble(key);
+  /// get object.
+  static Map getObject(String key) {
+    if (_prefs == null) return null;
+    String _data = _prefs.getString(key);
+    return (_data == null || _data.isEmpty) ? null : json.decode(_data);
   }
 
-  Future<bool> getBool(String key) async {
-    var prefs = await init;
-    return prefs.getBool(key);
+  /// put object list.
+  static Future<bool> putObjectList(String key, List<Object> list) {
+    if (_prefs == null) return null;
+    List<String> _dataList = list?.map((value) {
+      return json.encode(value);
+    })?.toList();
+    return _prefs.setStringList(key, _dataList);
   }
 
-  void remove(String key) async {
-    var prefs = await init;
-    prefs.remove(key);
+  /// get obj list.
+  static List<T> getObjList<T>(String key, T f(Map v),
+      {List<T> defValue = const []}) {
+    List<Map> dataList = getObjectList(key);
+    List<T> list = dataList?.map((value) {
+      return f(value);
+    })?.toList();
+    return list ?? defValue;
   }
 
-  void getKey() async {
-    var prefs = await init;
-    prefs.getKeys();
+  /// get object list.
+  static List<Map> getObjectList(String key) {
+    if (_prefs == null) return null;
+    List<String> dataLis = _prefs.getStringList(key);
+    return dataLis?.map((value) {
+      Map _dataMap = json.decode(value);
+      return _dataMap;
+    })?.toList();
   }
 
+  /// get string.
+  static String getString(String key, {String defValue = ''}) {
+    if (_prefs == null) return defValue;
+    return _prefs.getString(key) ?? defValue;
+  }
 
-  // getStringList(String key) async {
-  //   var spClient = await sp;
-  //   return spClient.getStringList(key);
-  // }
+  /// put string.
+  static Future<bool> putString(String key, String value) {
+    if (_prefs == null) return null;
+    return _prefs.setString(key, value);
+  }
+
+  /// get bool.
+  static bool getBool(String key, {bool defValue = false}) {
+    if (_prefs == null) return defValue;
+    return _prefs.getBool(key) ?? defValue;
+  }
+
+  /// put bool.
+  static Future<bool> putBool(String key, bool value) {
+    if (_prefs == null) return null;
+    return _prefs.setBool(key, value);
+  }
+
+  /// get int.
+  static int getInt(String key, {int defValue = 0}) {
+    if (_prefs == null) return defValue;
+    return _prefs.getInt(key) ?? defValue;
+  }
+
+  /// put int.
+  static Future<bool> putInt(String key, int value) {
+    if (_prefs == null) return null;
+    return _prefs.setInt(key, value);
+  }
+
+  /// get double.
+  static double getDouble(String key, {double defValue = 0.0}) {
+    if (_prefs == null) return defValue;
+    return _prefs.getDouble(key) ?? defValue;
+  }
+
+  /// put double.
+  static Future<bool> putDouble(String key, double value) {
+    if (_prefs == null) return null;
+    return _prefs.setDouble(key, value);
+  }
+
+  /// get string list.
+  static List<String> getStringList(String key,
+      {List<String> defValue = const []}) {
+    if (_prefs == null) return defValue;
+    return _prefs.getStringList(key) ?? defValue;
+  }
+
+  /// put string list.
+  static Future<bool> putStringList(String key, List<String> value) {
+    if (_prefs == null) return null;
+    return _prefs.setStringList(key, value);
+  }
+
+  /// get dynamic.
+  static dynamic getDynamic(String key, {Object defValue}) {
+    if (_prefs == null) return defValue;
+    return _prefs.get(key) ?? defValue;
+  }
+
+  /// have key.
+  static bool haveKey(String key) {
+    if (_prefs == null) return null;
+    return _prefs.getKeys().contains(key);
+  }
+
+  /// get keys.
+  static Set<String> getKeys() {
+    if (_prefs == null) return null;
+    return _prefs.getKeys();
+  }
+
+  /// remove by key.
+  static Future<bool> remove(String key) {
+    if (_prefs == null) return null;
+    return _prefs.remove(key);
+  }
+
+  /// clear.
+  static Future<bool> clear() {
+    if (_prefs == null) return null;
+    return _prefs.clear();
+  }
+
+  ///Sp is initialized.
+  static bool isInitialized() {
+    return _prefs != null;
+  }
 }
