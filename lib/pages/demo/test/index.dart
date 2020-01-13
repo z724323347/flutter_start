@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pro/pages/custom_route.dart';
+import 'package:flutter_pro/pages/demo/paint/signature_page.dart';
 import 'package:flutter_pro/util/sp_utils.dart';
 
 class TestImageExpened extends StatefulWidget {
@@ -31,6 +33,14 @@ class _TestImageExpenedState extends State<TestImageExpened> {
                   child: Text('data'),
                 ),
                 Text('${s}'),
+                RaisedButton(
+                  child: Text('打开SignaturePainter!'),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      CustomRoute(SignaturePage()),
+                    );
+                  },
+                ),
               ],
             ),
           ),

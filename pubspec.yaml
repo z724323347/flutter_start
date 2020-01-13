@@ -49,6 +49,7 @@ dependencies:
   # barcode_scan: ^0.0.3
   multi_image_picker: ^4.5.0
   flutter_animation_set: ^0.0.3
+  image_gallery_saver: 1.2.2
 
   # 极光 推送/统计
   jpush_flutter: 0.0.13
